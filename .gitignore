@@ -21,6 +21,7 @@ _testmain.go
 
 site/public
 public
+checkout
 
 *.exe
 *.test
