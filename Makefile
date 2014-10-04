@@ -5,8 +5,10 @@ name = all
 2_0 = checkout/2.0
 1_4 = checkout/1.4
 # Base url used to generate 2.0 API docs
-baseurl_2_0 = /2.0
-baseurl = /
+baseurl_2_0 = /learn-mongodb-docs/2.0
+baseurl = /learn-mongodb-docs
+# Git repo
+repo = git@github.com:christkv/learn-mongodb-docs.git
 
 #
 # Generate all
@@ -35,6 +37,16 @@ setup:
 	cd ../..
 
 #
+# Publishes to the local git repository
+# git subtree add --prefix public git@github.com:christkv/learn-mongodb-docs.git gh-pages --squash
+#
+publish: generate_main_docs
+	cp -R ./public ./$(repo)/.
+	cd ./$(repo); git add -A
+	cd ./$(repo); git commit -m "Updated documentation" && git push origin master
+	git subtree push --prefix=public $(repo) gh-pages
+
+#
 # Generates main docs frame
 #
 generate_main_docs: generate_2_0_docs generate_1_4_docs
@@ -45,8 +57,6 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs
 	cp -R $(2_0)/public ./public/2.0
 	# Copy the 1.4 docs
 	cp -R $(1_4)/docs/sphinx-docs/build/html ./public/1.4
-	# Tar up the release information
-	tar -zcvf ./docs.tar.gz public/
 
 #
 # Generates the driver 1.4 docs
