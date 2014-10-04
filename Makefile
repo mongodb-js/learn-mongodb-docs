@@ -9,6 +9,11 @@ baseurl_2_0 = /2.0
 baseurl = /
 
 #
+# Generate all
+#
+all: setup generate_main_docs
+
+#
 # Setup all the sub repositories used for the documentation
 #
 setup:
