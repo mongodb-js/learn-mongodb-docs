@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Api-Docs on  </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>/2.0/api-docs/index.xml/</link>
+    
+    
+    
+    <updated>Mon, 01 Jul 2013 00:00:00 UTC</updated>
+    
+    <item>
+      <title>API Documentation</title>
+      <link>/2.0/api-docs/</link>
+      <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
+      
+      <guid>/2.0/api-docs/</guid>
+      <description>&lt;iframe src=&#34;/api/index.html&#34; frameborder=&#34;0&#34; style=&#34;overflow:hidden;height:100%;width:100%&#34; height=&#34;100%&#34; width=&#34;100%&#34;&gt;&lt;/iframe&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
