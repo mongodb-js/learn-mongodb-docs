@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Db() &mdash; MongoDB Node.JS Driver 1.4.6 documentation</title>
+    <title>Db() &mdash; MongoDB Node.JS Driver 1.4.18 documentation</title>
     
     <link rel="stylesheet" href="../_static/mongodb-docs.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.4.6',
+        VERSION:     '1.4.18',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="MongoDB Node.JS Driver 1.4.6 documentation" href="../index.html" />
+    <link rel="top" title="MongoDB Node.JS Driver 1.4.18 documentation" href="../index.html" />
     <link rel="next" title="Collection()" href="collection.html" />
     <link rel="prev" title="MongoClient()" href="mongoclient.html" /> 
   </head>
@@ -37,7 +37,7 @@
           <li><p><a href="../index.html"><img class="logo" src="../_static/logo-mongodb.png" alt="Logo"/></p></li>
         <li class="right">| <a href="https://github.com/mongodb/node-mongodb-native/" title="Fork the driver on GitHub to contribute.">GitHub</a></li>
         <li class="right"><a href="http://jira.mongodb.org/browse/NODE" title="Open a case in Jira to report a problem with the documentation.">Jira</a></li>
-        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.6 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
+        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.18 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
       </ul>
     </div>  
 
@@ -90,7 +90,7 @@
 <li><strong>logger</strong> {Object, default:null}, an object representing a logger that you want to use, needs to support functions debug, log, error <strong>({error:function(message, object) {}, log:function(message, object) {}, debug:function(message, object) {}})</strong>.</li>
 <li><strong>slaveOk</strong> {Number, default:null}, force setting of SlaveOk flag on queries (only use when explicitly connecting to a secondary server).</li>
 <li><strong>promoteLongs</strong> {Boolean, default:true}, when deserializing a Long will fit it into a Number if it&#8217;s smaller than 53 bits</li>
-<li><strong>bufferMaxEntries</strong> {Boolean, default: -1}, sets a cap on how many operations the driver will buffer up before giving up on getting a working connection, default is -1 which is unlimited</li>
+<li><strong>bufferMaxEntries</strong> {Number, default: -1}, sets a cap on how many operations the driver will buffer up before giving up on getting a working connection, default is -1 which is unlimited</li>
 </ul>
 </dd>
 </dl>
@@ -348,7 +348,7 @@
 </div>
 <div class="section" id="close">
 <h2>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h2>
-<p>Close the current db connection, including all the child db instances. Emits close event if no callback is provided.</p>
+<p>Close the current db connection, including all the child db instances. Emits close event and calls optional callback.</p>
 <dl class="function">
 <dt>
 <tt class="descname">close</tt><big>(</big><span class="optional">[</span><em>forceClose</em>, <span class="optional">]</span><em>callback</em><big>)</big></dt>
@@ -487,7 +487,8 @@
 </div>
 <div class="section" id="collectionsinfo">
 <h2>collectionsInfo<a class="headerlink" href="#collectionsinfo" title="Permalink to this headline">¶</a></h2>
-<p>Returns a cursor to all the collection information.</p>
+<p>DEPRECATED: Returns a cursor to all the collection information. Does not work with 2.8 or higher when using
+other storage engines</p>
 <dl class="function">
 <dt id="collectionsInfo">
 <tt class="descname">collectionsInfo</tt><big>(</big><span class="optional">[</span><em>collectionName</em>, <span class="optional">]</span><em>callback</em><big>)</big><a class="headerlink" href="#collectionsInfo" title="Permalink to this definition">¶</a></dt>
@@ -552,6 +553,39 @@
 </pre></div>
 </div>
 </div></blockquote>
+</div>
+<div class="section" id="listcollections">
+<h2>listCollections<a class="headerlink" href="#listcollections" title="Permalink to this headline">¶</a></h2>
+<p>Get the list of all collection names for the specified db</p>
+<dl class="docutils">
+<dt>Options</dt>
+<dd><ul class="first last simple">
+<li><strong>namesOnly</strong> {String, default:false}, Return only the full collection namespace.</li>
+<li><strong>filter</strong> {String|Object, default:null}, Filter collections by this filter (string or object)</li>
+</ul>
+</dd>
+</dl>
+<dl class="function">
+<dt id="listCollections">
+<tt class="descname">listCollections</tt><big>(</big><em>[collectionName][, options], callback</em><big>)</big><a class="headerlink" href="#listCollections" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>[collectionName]</strong> (<em>string</em>) &#8211; the collection name we wish to filter by.</li>
+<li><strong>[options]</strong> (<em>object</em>) &#8211; additional options during update.</li>
+<li><strong>callback</strong> (<em>function</em>) &#8211; this will be called after executing this method. The first parameter will contain the Error object if an error occurred, or null otherwise. While the second parameter will contain the collection names or null if an error occurred.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">null</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="collectionnames">
 <h2>collectionNames<a class="headerlink" href="#collectionnames" title="Permalink to this headline">¶</a></h2>
@@ -690,6 +724,7 @@ can use it without a callback in the following way. var collection = db.collecti
 
   <span class="c1">// Grab a collection with a callback but no safe operation</span>
   <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;test_correctly_access_collections&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">col2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
     <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
     <span class="c1">// Grab a collection with a callback in safe mode, ensuring it exists (should fail as it&#39;s not created)</span>
@@ -698,6 +733,7 @@ can use it without a callback in the following way. var collection = db.collecti
 
       <span class="c1">// Create the collection</span>
       <span class="nx">db</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s1">&#39;test_correctly_access_collections&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
         <span class="c1">// Retry to get the collection, should work as it&#39;s now created</span>
         <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;test_correctly_access_collections&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">strict</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">col3</span><span class="p">)</span> <span class="p">{</span>
@@ -1616,7 +1652,6 @@ Options</p>
 <li><strong>unique</strong> {Boolean, default:false}, creates an unique index.</li>
 <li><strong>sparse</strong> {Boolean, default:false}, creates a sparse index.</li>
 <li><strong>background</strong> {Boolean, default:false}, creates the index in the background, yielding whenever possible.</li>
-<li><strong>dropDups</strong> {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value</li>
 <li><strong>min</strong> {Number}, for geospatial indexes set the lower bound for the co-ordinates.</li>
 <li><strong>max</strong> {Number}, for geospatial indexes set the high bound for the co-ordinates.</li>
 <li><strong>v</strong> {Number}, specify the format version of the indexes.</li>
@@ -1671,13 +1706,13 @@ Options</p>
     <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
     <span class="c1">// Insert a bunch of documents for the index</span>
-    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
       <span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">4</span><span class="p">}],</span> <span class="p">{</span><span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
       <span class="c1">// Create an index on the a field</span>
       <span class="nx">db</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;more_complex_index_test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
-        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">dropDups</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="c1">// Show that duplicate records got dropped</span>
         <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">({}).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
@@ -1687,8 +1722,7 @@ Options</p>
           <span class="c1">// Peform a query, with explain to show we hit the query</span>
           <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">explain</span><span class="o">:</span><span class="kc">true</span><span class="p">}).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">explanation</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">explanation</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">indexBounds</span><span class="p">.</span><span class="nx">a</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">);</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">explanation</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">indexBounds</span><span class="p">.</span><span class="nx">b</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">);</span>
+            <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">explanation</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">);</span>
 
             <span class="nx">db</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
           <span class="p">});</span>
@@ -1714,7 +1748,6 @@ Options</p>
 <li><strong>unique</strong> {Boolean, default:false}, creates an unique index.</li>
 <li><strong>sparse</strong> {Boolean, default:false}, creates a sparse index.</li>
 <li><strong>background</strong> {Boolean, default:false}, creates the index in the background, yielding whenever possible.</li>
-<li><strong>dropDups</strong> {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value</li>
 <li><strong>min</strong> {Number}, for geospatial indexes set the lower bound for the co-ordinates.</li>
 <li><strong>max</strong> {Number}, for geospatial indexes set the high bound for the co-ordinates.</li>
 <li><strong>v</strong> {Number}, specify the format version of the indexes.</li>
@@ -1745,59 +1778,6 @@ Options</p>
 </table>
 </dd></dl>
 
-<p><strong>Examples</strong></p>
-<blockquote>
-<div><p>A more complex ensureIndex using a compound unique index in the background and dropping duplicated documents.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">Db</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Db</span><span class="p">,</span>
-    <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">,</span>
-    <span class="nx">Server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Server</span><span class="p">,</span>
-    <span class="nx">ReplSetServers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">ReplSetServers</span><span class="p">,</span>
-    <span class="nx">ObjectID</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">ObjectID</span><span class="p">,</span>
-    <span class="nx">Binary</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Binary</span><span class="p">,</span>
-    <span class="nx">GridStore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">GridStore</span><span class="p">,</span>
-    <span class="nx">Grid</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Grid</span><span class="p">,</span>
-    <span class="nx">Code</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Code</span><span class="p">,</span>
-    <span class="nx">BSON</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">pure</span><span class="p">().</span><span class="nx">BSON</span><span class="p">,</span>
-    <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;assert&#39;</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Db</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">));</span>
-<span class="c1">// Establish connection to db</span>
-<span class="nx">db</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">// Create a collection we want to drop later</span>
-  <span class="nx">db</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s1">&#39;more_complex_ensure_index_db_test&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">collection</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
-
-    <span class="c1">// Insert a bunch of documents for the index</span>
-    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
-      <span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">4</span><span class="p">}],</span> <span class="p">{</span><span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
-
-      <span class="c1">// Create an index on the a field</span>
-      <span class="nx">db</span><span class="p">.</span><span class="nx">ensureIndex</span><span class="p">(</span><span class="s1">&#39;more_complex_ensure_index_db_test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
-        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">dropDups</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
-
-        <span class="c1">// Show that duplicate records got dropped</span>
-        <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">({}).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
-          <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
-
-          <span class="c1">// Peform a query, with explain to show we hit the query</span>
-          <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">explain</span><span class="o">:</span><span class="kc">true</span><span class="p">}).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">explanation</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">explanation</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">indexBounds</span><span class="p">.</span><span class="nx">a</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">);</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">explanation</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">indexBounds</span><span class="p">.</span><span class="nx">b</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">);</span>
-
-            <span class="nx">db</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-          <span class="p">});</span>
-        <span class="p">})</span>
-      <span class="p">});</span>
-    <span class="p">});</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-</pre></div>
-</div>
-</div></blockquote>
 </div>
 <div class="section" id="cursorinfo">
 <h2>cursorInfo<a class="headerlink" href="#cursorinfo" title="Permalink to this headline">¶</a></h2>
@@ -1929,13 +1909,13 @@ Options</p>
     <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
     <span class="c1">// Insert a bunch of documents for the index</span>
-    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
       <span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">4</span><span class="p">}],</span> <span class="p">{</span><span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
       <span class="c1">// Create an index on the a field</span>
       <span class="nx">collection</span><span class="p">.</span><span class="nx">ensureIndex</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
-        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">dropDups</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="c1">// Drop the index</span>
         <span class="nx">db</span><span class="p">.</span><span class="nx">dropIndex</span><span class="p">(</span><span class="s2">&quot;create_and_drop_an_index&quot;</span><span class="p">,</span> <span class="s2">&quot;a_1_b_1&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -2002,13 +1982,13 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
     <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
     <span class="c1">// Insert a bunch of documents for the index</span>
-    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
       <span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="mi">4</span><span class="p">}],</span> <span class="p">{</span><span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
       <span class="c1">// Create an index on the a field</span>
       <span class="nx">collection</span><span class="p">.</span><span class="nx">ensureIndex</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
-        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">dropDups</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="c1">// Force a reindex of the collection</span>
         <span class="nx">db</span><span class="p">.</span><span class="nx">reIndex</span><span class="p">(</span><span class="s1">&#39;create_and_drop_all_indexes&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -2087,13 +2067,13 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
     <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
     <span class="c1">// Insert a bunch of documents for the index</span>
-    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">([{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
       <span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">4</span><span class="p">}],</span> <span class="p">{</span><span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
 
       <span class="c1">// Create an index on the a field</span>
       <span class="nx">collection</span><span class="p">.</span><span class="nx">ensureIndex</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
-        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">dropDups</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">background</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexName</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="c1">// Fetch basic indexInformation for collection</span>
         <span class="nx">db</span><span class="p">.</span><span class="nx">indexInformation</span><span class="p">(</span><span class="s1">&#39;more_index_information_test&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">indexInformation</span><span class="p">)</span> <span class="p">{</span>
@@ -2339,6 +2319,7 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
 <li><a class="reference internal" href="#close">close</a></li>
 <li><a class="reference internal" href="#admin">admin</a></li>
 <li><a class="reference internal" href="#collectionsinfo">collectionsInfo</a></li>
+<li><a class="reference internal" href="#listcollections">listCollections</a></li>
 <li><a class="reference internal" href="#collectionnames">collectionNames</a></li>
 <li><a class="reference internal" href="#collection">collection</a></li>
 <li><a class="reference internal" href="#collections">collections</a></li>
@@ -2518,7 +2499,7 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
       <ul>
         <li class="right">| <a href="https://github.com/mongodb/node-mongodb-native/" title="Fork the driver on GitHub to contribute.">GitHub</a></li>
         <li class="right"><a href="http://jira.mongodb.org/browse/NODE" title="Open a case in Jira to report a problem with the documentation.">Jira</a></li>
-        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.6 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
+        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.18 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
       </ul>
     </div></div>
     <div class="footer">

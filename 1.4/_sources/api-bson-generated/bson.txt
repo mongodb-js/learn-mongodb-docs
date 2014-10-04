@@ -29,6 +29,7 @@ Constants
    "BSON.BSON_DATA_OBJECT", "3", "Object BSON Type"
    "BSON.BSON_DATA_ARRAY", "4", "Array BSON Type"
    "BSON.BSON_DATA_BINARY", "5", "Binary BSON Type"
+   "BSON.BSON_DATA_UNDEFINED", "6", "Binary BSON Type"
    "BSON.BSON_DATA_OID", "7", "ObjectID BSON Type"
    "BSON.BSON_DATA_BOOLEAN", "8", "Boolean BSON Type"
    "BSON.BSON_DATA_DATE", "9", "Date BSON Type"

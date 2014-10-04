@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>BSON() &mdash; MongoDB Node.JS Driver 1.4.6 documentation</title>
+    <title>BSON() &mdash; MongoDB Node.JS Driver 1.4.18 documentation</title>
     
     <link rel="stylesheet" href="../_static/mongodb-docs.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.4.6',
+        VERSION:     '1.4.18',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="MongoDB Node.JS Driver 1.4.6 documentation" href="../index.html" />
+    <link rel="top" title="MongoDB Node.JS Driver 1.4.18 documentation" href="../index.html" />
     <link rel="next" title="ObjectID()" href="objectid.html" />
     <link rel="prev" title="ReadStream()" href="../api-generated/readstream.html" /> 
   </head>
@@ -37,7 +37,7 @@
           <li><p><a href="../index.html"><img class="logo" src="../_static/logo-mongodb.png" alt="Logo"/></p></li>
         <li class="right">| <a href="https://github.com/mongodb/node-mongodb-native/" title="Fork the driver on GitHub to contribute.">GitHub</a></li>
         <li class="right"><a href="http://jira.mongodb.org/browse/NODE" title="Open a case in Jira to report a problem with the documentation.">Jira</a></li>
-        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.6 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
+        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.18 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
       </ul>
     </div>  
 
@@ -102,79 +102,83 @@
 <td>5</td>
 <td>Binary BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_OID</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_UNDEFINED</td>
+<td>6</td>
+<td>Binary BSON Type</td>
+</tr>
+<tr class="row-even"><td>BSON.BSON_DATA_OID</td>
 <td>7</td>
 <td>ObjectID BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_DATA_BOOLEAN</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_BOOLEAN</td>
 <td>8</td>
 <td>Boolean BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_DATE</td>
+<tr class="row-even"><td>BSON.BSON_DATA_DATE</td>
 <td>9</td>
 <td>Date BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_DATA_NULL</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_NULL</td>
 <td>10</td>
 <td>null BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_REGEXP</td>
+<tr class="row-even"><td>BSON.BSON_DATA_REGEXP</td>
 <td>11</td>
 <td>RegExp BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_DATA_CODE</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_CODE</td>
 <td>13</td>
 <td>Code BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_SYMBOL</td>
+<tr class="row-even"><td>BSON.BSON_DATA_SYMBOL</td>
 <td>14</td>
 <td>Symbol BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_DATA_CODE_W_SCOPE</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_CODE_W_SCOPE</td>
 <td>15</td>
 <td>Code with Scope BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_INT</td>
+<tr class="row-even"><td>BSON.BSON_DATA_INT</td>
 <td>16</td>
 <td>32 bit Integer BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_DATA_TIMESTAMP</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_TIMESTAMP</td>
 <td>17</td>
 <td>Timestamp BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_LONG</td>
+<tr class="row-even"><td>BSON.BSON_DATA_LONG</td>
 <td>18</td>
 <td>Long BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_DATA_MIN_KEY</td>
+<tr class="row-odd"><td>BSON.BSON_DATA_MIN_KEY</td>
 <td>0xff</td>
 <td>MinKey BSON Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_DATA_MAX_KEY</td>
+<tr class="row-even"><td>BSON.BSON_DATA_MAX_KEY</td>
 <td>0x7f</td>
 <td>MaxKey BSON Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_BINARY_SUBTYPE_DEFAULT</td>
+<tr class="row-odd"><td>BSON.BSON_BINARY_SUBTYPE_DEFAULT</td>
 <td>0</td>
 <td>Binary Default Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_BINARY_SUBTYPE_FUNCTION</td>
+<tr class="row-even"><td>BSON.BSON_BINARY_SUBTYPE_FUNCTION</td>
 <td>1</td>
 <td>Binary Function Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_BINARY_SUBTYPE_BYTE_ARRAY</td>
+<tr class="row-odd"><td>BSON.BSON_BINARY_SUBTYPE_BYTE_ARRAY</td>
 <td>2</td>
 <td>Binary Byte Array Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_BINARY_SUBTYPE_UUID</td>
+<tr class="row-even"><td>BSON.BSON_BINARY_SUBTYPE_UUID</td>
 <td>3</td>
 <td>Binary UUID Type</td>
 </tr>
-<tr class="row-even"><td>BSON.BSON_BINARY_SUBTYPE_MD5</td>
+<tr class="row-odd"><td>BSON.BSON_BINARY_SUBTYPE_MD5</td>
 <td>4</td>
 <td>Binary MD5 Type</td>
 </tr>
-<tr class="row-odd"><td>BSON.BSON_BINARY_SUBTYPE_USER_DEFINED</td>
+<tr class="row-even"><td>BSON.BSON_BINARY_SUBTYPE_USER_DEFINED</td>
 <td>128</td>
 <td>Binary User Defined Type</td>
 </tr>
@@ -659,7 +663,7 @@
       <ul>
         <li class="right">| <a href="https://github.com/mongodb/node-mongodb-native/" title="Fork the driver on GitHub to contribute.">GitHub</a></li>
         <li class="right"><a href="http://jira.mongodb.org/browse/NODE" title="Open a case in Jira to report a problem with the documentation.">Jira</a></li>
-        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.6 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
+        <li><a href="../contents.html">MongoDB Node.JS Driver 1.4.18 documentation</a> (<a href="../genindex.html">index</a>)  &raquo;</li> 
       </ul>
     </div></div>
     <div class="footer">

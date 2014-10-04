@@ -427,11 +427,11 @@ Options
      
                // Attemp to rename the first collection to a name that does not exist
                // this will be succesful
-               collection1.rename('test_rename_collection3', function(err, collection) {
-                 assert.equal("test_rename_collection3", collection.collectionName);
+               collection1.rename('test_rename_collection3', function(err, collection2) {
+                 assert.equal("test_rename_collection3", collection2.collectionName);
      
                  // Ensure that the collection is pointing to the new one
-                 collection1.count(function(err, count) {
+                 collection2.count(function(err, count) {
                    assert.equal(2, count);
                    db.close();
                  });
@@ -1445,7 +1445,6 @@ Options
  - **unique** {Boolean, default:false}, creates an unique index.
  - **sparse** {Boolean, default:false}, creates a sparse index.
  - **background** {Boolean, default:false}, creates the index in the background, yielding whenever possible.
- - **dropDups** {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value
  - **min** {Number}, for geospatial indexes set the lower bound for the co-ordinates.
  - **max** {Number}, for geospatial indexes set the high bound for the co-ordinates.
  - **v** {Number}, specify the format version of the indexes.
@@ -1498,66 +1497,11 @@ Options
      
              // Peform a query, with explain to show we hit the query
              collection.find({a:2}, {explain:true}).toArray(function(err, explanation) {
-               assert.deepEqual([[2, 2]], explanation[0].indexBounds.a);
+               assert.equal(null, err);
+               assert.ok(explanation != null);
      
                db.close();
              });
-           });
-         });
-       });
-     });
-
-  
-  
-  A more complex createIndex using a compound unique index in the background and dropping duplicated documents
-
-  .. code-block:: javascript
-
-     var Db = require('mongodb').Db,
-         MongoClient = require('mongodb').MongoClient,
-         Server = require('mongodb').Server,
-         ReplSetServers = require('mongodb').ReplSetServers,
-         ObjectID = require('mongodb').ObjectID,
-         Binary = require('mongodb').Binary,
-         GridStore = require('mongodb').GridStore,
-         Grid = require('mongodb').Grid,
-         Code = require('mongodb').Code,
-         BSON = require('mongodb').pure().BSON,
-         assert = require('assert');
-
-     var db = new Db('test', new Server('localhost', 27017));
-     // Establish connection to db
-     db.open(function(err, db) {
-     
-       // Create a collection we want to drop later
-       db.createCollection('more_complex_index_test', function(err, collection) {
-         assert.equal(null, err);
-     
-         // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
-           , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
-           assert.equal(null, err);
-     
-           var options = {unique:true, background:true, dropDups:true, w:1};
-           // Create an index on the a field
-           collection.createIndex({a:1, b:1}
-             , options, function(err, indexName) {
-     
-             assert.ok(!options.readPreference);
-             // Show that duplicate records got dropped
-             collection.find({}).toArray(function(err, items) {
-               assert.equal(null, err);
-               assert.equal(4, items.length);
-     
-               // Peform a query, with explain to show we hit the query
-               collection.find({a:2}, {explain:true}).toArray(function(err, explanation) {
-                 assert.equal(null, err);
-                 assert.ok(explanation[0].indexBounds.a != null);
-                 assert.ok(explanation[0].indexBounds.b != null);
-     
-                 db.close();
-               });
-             })
            });
          });
        });
@@ -1581,7 +1525,6 @@ Options
  - **unique** {Boolean, default:false}, creates an unique index.
  - **sparse** {Boolean, default:false}, creates a sparse index.
  - **background** {Boolean, default:false}, creates the index in the background, yielding whenever possible.
- - **dropDups** {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value
  - **min** {Number}, for geospatial indexes set the lower bound for the co-ordinates.
  - **max** {Number}, for geospatial indexes set the high bound for the co-ordinates.
  - **v** {Number}, specify the format version of the indexes.
@@ -1594,62 +1537,6 @@ Options
    :param object [options]: additional options during update.
    :param function callback: this will be called after executing this method. The first parameter will contain the Error object if an error occured, or null otherwise. While the second parameter will contain the results from the ensureIndex method or null if an error occured.
    :returns: null 
-
-
-**Examples**
-
-  
-  
-  A more complex ensureIndex using a compound unique index in the background and dropping duplicated documents.
-
-  .. code-block:: javascript
-
-     var Db = require('mongodb').Db,
-         MongoClient = require('mongodb').MongoClient,
-         Server = require('mongodb').Server,
-         ReplSetServers = require('mongodb').ReplSetServers,
-         ObjectID = require('mongodb').ObjectID,
-         Binary = require('mongodb').Binary,
-         GridStore = require('mongodb').GridStore,
-         Grid = require('mongodb').Grid,
-         Code = require('mongodb').Code,
-         BSON = require('mongodb').pure().BSON,
-         assert = require('assert');
-
-     var db = new Db('test', new Server('localhost', 27017));
-     // Establish connection to db
-     db.open(function(err, db) {
-     
-       // Create a collection we want to drop later
-       db.createCollection('more_complex_ensure_index_test', function(err, collection) {
-         assert.equal(null, err);
-     
-         // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
-           , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
-           assert.equal(null, err);
-     
-           // Create an index on the a field
-           collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
-             // Show that duplicate records got dropped
-             collection.find({}).toArray(function(err, items) {
-               assert.equal(null, err);
-               assert.equal(4, items.length);
-     
-               // Peform a query, with explain to show we hit the query
-               collection.find({a:2}, {explain:true}).toArray(function(err, explanation) {
-                 assert.equal(null, err);
-                 assert.ok(explanation[0].indexBounds.a != null);
-                 assert.ok(explanation[0].indexBounds.b != null);
-     
-                 db.close();
-               });
-             })
-           });
-         });
-       });
-     });
 
 
 ----------------
@@ -1700,13 +1587,13 @@ Options
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}, {a:1, b:2}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Fetch basic indexInformation for collection
              collection.indexInformation(function(err, indexInformation) {
@@ -1770,13 +1657,13 @@ Drops an index from this collection.
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}, {a:1, b:2}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Drop the index
              collection.dropIndex("a_1_b_1", function(err, result) {
@@ -1852,13 +1739,13 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}, {a:1, b:2}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4, c:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Force a reindex of the collection
              collection.reIndex(function(err, result) {
@@ -1867,8 +1754,8 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
      
                // Verify that the index is gone
                collection.indexInformation(function(err, indexInformation) {
-                 assert.deepEqual([ [ '_id', 1 ] ], indexInformation._id_);
-                 assert.deepEqual([ [ 'a', 1 ], [ 'b', 1 ] ], indexInformation.a_1_b_1);
+                 assert.equal(null, err);
+                 assert.ok(indexInformation != null);
      
                  db.close();
                });

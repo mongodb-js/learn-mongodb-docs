@@ -2,6 +2,88 @@
 Changelog
 =========
 
+1.4.18 2015-10-03
+-----------------
+- Cleanup of code removing handleCallback instances
+- Throw error on missing callback on createIndex in strict mode (Issue #1214, https://github.com/marneborn)
+
+1.4.17 2015-09-27
+-----------------
+- NODE-286 collection/query.js references undefined MongoError
+- NODE-287 &quot;MongoError is not defined&quot; in options command
+
+1.4.16 2015-09-26
+-----------------
+- Fix minor issue due to MongoError usage in options and listCollections
+
+1.4.15 2015-09-25
+-----------------
+- Fix issues with collection.options
+
+1.4.14 2015-09-24
+-----------------
+- Args leak to global namespace fix.
+
+1.4.13 2015-09-24
+-----------------
+- NODE-283 Collection rename now always returns a new Collection object
+- Added listCollections helper to Db.prototype
+- Scram default authentication mechanism on 2.8 or higher if none is specified
+
+1.4.12 2014-09-17
+-----------------
+- NODE-270 Added better handling of errors on cursor timeouts when calling getMore
+- NODE-272 Uncaught Exception at connectionPool.on(&quot;message&quot;)
+- Fixed regression where createIndex sometimes reported index as already existing in non-strict mode due to parallel execution of create commands.
+
+1.4.11 2014-09-16
+-----------------
+- Hardened result handling in command, insert, update, remove for issue where no result is returned.
+- NODE-267 undefined variable util used in unordered.js instead of utils.
+- Added support for 2.8 listIndexes and listCollections
+- Added support for 2.8 SCRAM-SHA-1 mechanism
+
+1.4.10 2014-09-04
+-----------------
+- Fixed BSON and Kerberos compilation issues
+- Bumped BSON to ~0.2 always installing latest BSON 0.2.x series
+- Fixed Kerberos and bumped to 0.0.4
+
+1.4.9 2014-08-26
+----------------
+- Check _bsonType for Binary (Issue #1202, https://github.com/mchapman)
+- Remove duplicate Cursor constructor (Issue #1201, https://github.com/KenPowers)
+- Added missing parameter in the documentation (Issue #1199, https://github.com/wpjunior)
+- Documented third parameter on the update callback(Issue #1196, https://github.com/gabmontes)
+- NODE-240 Operations on SSL connection hang on node 0.11.x
+- NODE-235 writeResult is not being passed on when error occurs in insert
+- NODE-229 Allow count to work with query hints
+- NODE-233 collection.save() does not support fullResult
+- NODE-244 Should parseError also emit a `disconnected` event?
+- NODE-246 Cursors are inefficiently constructed and consequently cannot be promisified.
+- NODE-248 Crash with X509 auth
+- NODE-252 Uncaught Exception in Base.__executeAllServerSpecificErrorCallbacks
+- Bumped BSON parser to 0.2.12
+
+1.4.8 2014-08-01
+----------------
+- NODE-205 correctly emit authenticate event
+- NODE-210 ensure no undefined connection error when checking server state
+- NODE-212 correctly inherit socketTimeoutMS from replicaset when HA process adds new servers or reconnects to existing ones
+- NODE-220 don't throw error if ensureIndex errors out in Gridstore
+- Updated bson to 0.2.11 to ensure correct toBSON behavior when returning non object in nested classes
+- Fixed test running filters
+- Wrap debug log in a call to format (Issue #1187, https://github.com/andyroyle)
+- False option values should not trigger w:1 (Issue #1186, https://github.com/jsdevel)
+- Fix aggregatestream.close(Issue #1194, https://github.com/jonathanong)
+- Fixed parsing issue for w:0 in url parser when in connection string
+- Modified collection.geoNear to support a geoJSON point or legacy coordinate pair (Issue #1198, https://github.com/mmacmillan)
+
+1.4.7 2014-06-18
+----------------
+- Make callbacks to be executed in right domain when server comes back up (Issue #1184, https://github.com/anton-kotenko)
+- Fix issue where currentOp query against mongos would fail due to mongos passing through $readPreference field to mongod (CS-X)
+
 1.4.6 2014-06-12
 ----------------
 - Added better support for MongoClient IP6 parsing (Issue #1181, https://github.com/micovery)

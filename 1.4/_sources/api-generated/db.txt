@@ -34,7 +34,7 @@ Options
  - **logger** {Object, default:null}, an object representing a logger that you want to use, needs to support functions debug, log, error **({error:function(message, object) {}, log:function(message, object) {}, debug:function(message, object) {}})**.
  - **slaveOk** {Number, default:null}, force setting of SlaveOk flag on queries (only use when explicitly connecting to a secondary server).
  - **promoteLongs** {Boolean, default:true}, when deserializing a Long will fit it into a Number if it's smaller than 53 bits
- - **bufferMaxEntries** {Boolean, default: -1}, sets a cap on how many operations the driver will buffer up before giving up on getting a working connection, default is -1 which is unlimited
+ - **bufferMaxEntries** {Number, default: -1}, sets a cap on how many operations the driver will buffer up before giving up on getting a working connection, default is -1 which is unlimited
 
 
 ------------------
@@ -281,7 +281,7 @@ close
 -----
 
 
-Close the current db connection, including all the child db instances. Emits close event if no callback is provided.
+Close the current db connection, including all the child db instances. Emits close event and calls optional callback.
 
 .. js:function:: close([forceClose], callback)
 
@@ -412,7 +412,8 @@ collectionsInfo
 ---------------
 
 
-Returns a cursor to all the collection information.
+DEPRECATED: Returns a cursor to all the collection information. Does not work with 2.8 or higher when using
+other storage engines
 
 .. js:function:: collectionsInfo([collectionName], callback)
 
@@ -467,6 +468,27 @@ Returns a cursor to all the collection information.
          });
        });
      });
+
+
+---------------
+listCollections
+---------------
+
+
+Get the list of all collection names for the specified db
+
+
+
+Options
+ - **namesOnly** {String, default:false}, Return only the full collection namespace.
+ - **filter** {String|Object, default:null}, Filter collections by this filter (string or object)
+
+.. js:function:: listCollections([collectionName][, options], callback)
+
+   :param string [collectionName]: the collection name we wish to filter by.
+   :param object [options]: additional options during update.
+   :param function callback: this will be called after executing this method. The first parameter will contain the Error object if an error occurred, or null otherwise. While the second parameter will contain the collection names or null if an error occurred.
+   :returns: null 
 
 
 ---------------
@@ -592,6 +614,7 @@ Options
      
        // Grab a collection with a callback but no safe operation
        db.collection('test_correctly_access_collections', function(err, col2) {
+         console.dir(err)
          assert.equal(null, err);
      
          // Grab a collection with a callback in safe mode, ensuring it exists (should fail as it's not created)
@@ -600,6 +623,7 @@ Options
      
            // Create the collection
            db.createCollection('test_correctly_access_collections', function(err, result) {
+             assert.equal(null, err);
      
              // Retry to get the collection, should work as it's now created
              db.collection('test_correctly_access_collections', {strict:true}, function(err, col3) {
@@ -1442,7 +1466,6 @@ Options
  - **unique** {Boolean, default:false}, creates an unique index.
  - **sparse** {Boolean, default:false}, creates a sparse index.
  - **background** {Boolean, default:false}, creates the index in the background, yielding whenever possible.
- - **dropDups** {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value
  - **min** {Number}, for geospatial indexes set the lower bound for the co-ordinates.
  - **max** {Number}, for geospatial indexes set the high bound for the co-ordinates.
  - **v** {Number}, specify the format version of the indexes.
@@ -1487,13 +1510,13 @@ Options
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            db.createIndex('more_complex_index_test', {a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Show that duplicate records got dropped
              collection.find({}).toArray(function(err, items) {
@@ -1503,8 +1526,7 @@ Options
                // Peform a query, with explain to show we hit the query
                collection.find({a:2}, {explain:true}).toArray(function(err, explanation) {
                  assert.equal(null, err);
-                 assert.ok(explanation[0].indexBounds.a != null);
-                 assert.ok(explanation[0].indexBounds.b != null);
+                 assert.ok(explanation != null);
      
                  db.close();
                });
@@ -1532,7 +1554,6 @@ Options
  - **unique** {Boolean, default:false}, creates an unique index.
  - **sparse** {Boolean, default:false}, creates a sparse index.
  - **background** {Boolean, default:false}, creates the index in the background, yielding whenever possible.
- - **dropDups** {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value
  - **min** {Number}, for geospatial indexes set the lower bound for the co-ordinates.
  - **max** {Number}, for geospatial indexes set the high bound for the co-ordinates.
  - **v** {Number}, specify the format version of the indexes.
@@ -1546,63 +1567,6 @@ Options
    :param object [options]: additional options during update.
    :param function callback: this will be called after executing this method. The first parameter will contain the Error object if an error occurred, or null otherwise. While the second parameter will contain the results from ensureIndex or null if an error occurred.
    :returns: null 
-
-
-**Examples**
-
-  
-  
-  A more complex ensureIndex using a compound unique index in the background and dropping duplicated documents.
-
-  .. code-block:: javascript
-
-     var Db = require('mongodb').Db,
-         MongoClient = require('mongodb').MongoClient,
-         Server = require('mongodb').Server,
-         ReplSetServers = require('mongodb').ReplSetServers,
-         ObjectID = require('mongodb').ObjectID,
-         Binary = require('mongodb').Binary,
-         GridStore = require('mongodb').GridStore,
-         Grid = require('mongodb').Grid,
-         Code = require('mongodb').Code,
-         BSON = require('mongodb').pure().BSON,
-         assert = require('assert');
-
-     var db = new Db('test', new Server('localhost', 27017));
-     // Establish connection to db
-     db.open(function(err, db) {
-     
-       // Create a collection we want to drop later
-       db.createCollection('more_complex_ensure_index_db_test', function(err, collection) {
-         assert.equal(null, err);
-     
-         // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
-           , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
-           assert.equal(null, err);
-     
-           // Create an index on the a field
-           db.ensureIndex('more_complex_ensure_index_db_test', {a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
-     
-             // Show that duplicate records got dropped
-             collection.find({}).toArray(function(err, items) {
-               assert.equal(null, err);
-               assert.equal(4, items.length);
-     
-               // Peform a query, with explain to show we hit the query
-               collection.find({a:2}, {explain:true}).toArray(function(err, explanation) {
-                 assert.equal(null, err);
-                 assert.ok(explanation[0].indexBounds.a != null);
-                 assert.ok(explanation[0].indexBounds.b != null);
-     
-                 db.close();
-               });
-             })
-           });
-         });
-       });
-     });
 
 
 ----------
@@ -1723,13 +1687,13 @@ Drop an index on a collection.
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}, {a:1, b:2}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Drop the index
              db.dropIndex("create_and_drop_an_index", "a_1_b_1", function(err, result) {
@@ -1791,13 +1755,13 @@ Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground)
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}, {a:1, b:2}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4, c:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Force a reindex of the collection
              db.reIndex('create_and_drop_all_indexes', function(err, result) {
@@ -1868,13 +1832,13 @@ Options
          assert.equal(null, err);
      
          // Insert a bunch of documents for the index
-         collection.insert([{a:1, b:1}, {a:1, b:1}
+         collection.insert([{a:1, b:1}, {a:1, b:2}
            , {a:2, b:2}, {a:3, b:3}, {a:4, b:4}], {w:1}, function(err, result) {
            assert.equal(null, err);
      
            // Create an index on the a field
            collection.ensureIndex({a:1, b:1}
-             , {unique:true, background:true, dropDups:true, w:1}, function(err, indexName) {
+             , {unique:true, background:true, w:1}, function(err, indexName) {
      
              // Fetch basic indexInformation for collection
              db.indexInformation('more_index_information_test', function(err, indexInformation) {
