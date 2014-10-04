@@ -8,12 +8,12 @@ MetaDataFormat = "yaml"
 [[menu.main]]
     name = "driver 1.4.X docs"
     pre = "<i class='fa fa-file-text'></i>"
-    url = "/1.4"
+    url = "1.4/"
     weight = -110
 [[menu.main]]
     name = "driver 2.0.X docs"
     pre = "<i class='fa fa-file-text'></i>"
-    url = "/2.0"
+    url = "2.0/"
     weight = -105
 [[menu.main]]
     name = "modules"

@@ -8,7 +8,7 @@ name = all
 baseurl_2_0 = /learn-mongodb-docs/2.0
 baseurl = /learn-mongodb-docs
 # Git repo
-repo = git@github.com:christkv/learn-mongodb-docs.git
+repo = ../dist
 
 #
 # Generate all
@@ -44,7 +44,7 @@ publish: generate_main_docs
 	cp -R ./public/. ./$(repo)/.
 	cd ./$(repo); git add -A
 	cd ./$(repo); git commit -m "Updated documentation" && git push origin master
-	git subtree push --prefix=public $(repo) gh-pages
+	cd ./$(repo); git push origin gh-pages
 
 #
 # Generates main docs frame
