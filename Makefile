@@ -40,6 +40,8 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs
 	cp -R $(2_0)/public ./public/2.0
 	# Copy the 1.4 docs
 	cp -R $(1_4)/docs/sphinx-docs/build/html ./public/1.4
+	# Tar up the release information
+	tar -zcvf ./docs.tar.gz public/
 
 #
 # Generates the driver 1.4 docs
