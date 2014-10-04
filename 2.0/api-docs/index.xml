@@ -15,7 +15,7 @@
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
       <guid>/learn-mongodb-docs/2.0/api-docs/</guid>
-      <description>&lt;iframe src=&#34;{{.Site.BaseUrl}}/api/index.html&#34; frameborder=&#34;0&#34; style=&#34;overflow:hidden;height:100%;width:100%&#34; height=&#34;100%&#34; width=&#34;100%&#34;&gt;&lt;/iframe&gt;</description>
+      <description>&lt;iframe src=&#34;api/index.html&#34; frameborder=&#34;0&#34; style=&#34;overflow:hidden;height:100%;width:100%&#34; height=&#34;100%&#34; width=&#34;100%&#34;&gt;&lt;/iframe&gt;</description>
     </item>
     
   </channel>
