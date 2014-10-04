@@ -43,7 +43,7 @@ setup:
 publish: generate_main_docs
 	cp -R ./public/. ./$(repo)/.
 	cd ./$(repo); git add -A
-	cd ./$(repo); git commit -m "Updated documentation" && git push origin master
+	cd ./$(repo); git commit -m "Updated documentation"
 	cd ./$(repo); git push origin gh-pages
 
 #
