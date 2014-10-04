@@ -6,7 +6,9 @@ This site contains information about the MongoDB driver as well as tutorials, ar
 
 ## Important Information
 
+ * [1.4.X Documentationn](/1.4)
  * [Important Changes from 1.X to 2.X](/2.0/meta/changes-from-1.0)
+ * [2.0.X Documentationn](/2.0)
  * [Install Driver](/2.0/overview/installing)
  * [Quick start](/voverview/quickstart)
  * [Join the Mailing List](/2.0/community/mailing-list)
