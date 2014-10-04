@@ -64,6 +64,7 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs
 #
 generate_1_4_docs:
 	echo "== Generating 1.4 docs"
+	cd $(1_4); git reset --hard
 	cd $(1_4); $(NODE) dev/tools/build-docs.js
 	cd $(1_4); make --directory=./docs/sphinx-docs --file=Makefile html
 
