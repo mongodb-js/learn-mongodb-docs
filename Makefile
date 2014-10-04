@@ -41,7 +41,7 @@ setup:
 # git subtree add --prefix public git@github.com:christkv/learn-mongodb-docs.git gh-pages --squash
 #
 publish: generate_main_docs
-	cp -R ./public ./$(repo)/.
+	cp -R ./public/. ./$(repo)/.
 	cd ./$(repo); git add -A
 	cd ./$(repo); git commit -m "Updated documentation" && git push origin master
 	git subtree push --prefix=public $(repo) gh-pages
