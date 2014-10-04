@@ -3,7 +3,7 @@
   <channel>
       <title>Recent Content on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/index.xml/</link>
+    <link>/learn-mongodb-docs/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>Mongoose</title>
-      <link>/modules/mongoose/</link>
+      <link>/learn-mongodb-docs/modules/mongoose/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/modules/mongoose/</guid>
+      <guid>/learn-mongodb-docs/modules/mongoose/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Mongoose&lt;/h1&gt;

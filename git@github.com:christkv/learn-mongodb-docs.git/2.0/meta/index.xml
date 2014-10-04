@@ -3,7 +3,7 @@
   <channel>
       <title>Meta on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/2.0/meta/index.xml/</link>
+    <link>/learn-mongodb-docs/2.0/meta/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>License</title>
-      <link>/2.0/meta/license/</link>
+      <link>/learn-mongodb-docs/2.0/meta/license/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/meta/license/</guid>
+      <guid>/learn-mongodb-docs/2.0/meta/license/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;Licensed Under Apache License 2.0&lt;/h2&gt;
@@ -29,10 +29,10 @@
     
     <item>
       <title>Release Notes</title>
-      <link>/2.0/meta/release-notes/</link>
+      <link>/learn-mongodb-docs/2.0/meta/release-notes/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/meta/release-notes/</guid>
+      <guid>/learn-mongodb-docs/2.0/meta/release-notes/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;2.0.0-alpha2 2014-10-02&lt;/h2&gt;
@@ -1289,10 +1289,10 @@
     
     <item>
       <title>Migrating to 2.X</title>
-      <link>/2.0/meta/changes-from-1.0/</link>
+      <link>/learn-mongodb-docs/2.0/meta/changes-from-1.0/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/meta/changes-from-1.0/</guid>
+      <guid>/learn-mongodb-docs/2.0/meta/changes-from-1.0/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Migrating Your Application To 2.0&lt;/h1&gt;

@@ -3,7 +3,7 @@
   <channel>
       <title>Overviews on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/2.0/overview/index.xml/</link>
+    <link>/learn-mongodb-docs/2.0/overview/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>Driver introduction</title>
-      <link>/2.0/overview/introduction/</link>
+      <link>/learn-mongodb-docs/2.0/overview/introduction/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/overview/introduction/</guid>
+      <guid>/learn-mongodb-docs/2.0/overview/introduction/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;What is Node.js Native?&lt;/h2&gt;
@@ -38,10 +38,10 @@
     
     <item>
       <title>Installing The Driver</title>
-      <link>/2.0/overview/installing/</link>
+      <link>/learn-mongodb-docs/2.0/overview/installing/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/overview/installing/</guid>
+      <guid>/learn-mongodb-docs/2.0/overview/installing/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;Installing MongoDB Node.js driver using NPM&lt;/h2&gt;
@@ -87,10 +87,10 @@
     
     <item>
       <title>QuickStart</title>
-      <link>/2.0/overview/quickstart/</link>
+      <link>/learn-mongodb-docs/2.0/overview/quickstart/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/overview/quickstart/</guid>
+      <guid>/learn-mongodb-docs/2.0/overview/quickstart/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;QuickStart&lt;/h1&gt;

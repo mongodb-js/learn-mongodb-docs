@@ -3,7 +3,7 @@
   <channel>
       <title>Articles on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/2.0/articles/index.xml/</link>
+    <link>/learn-mongodb-docs/2.0/articles/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>Node Knockout, Basics</title>
-      <link>/2.0/articles/node_knockout_article_1/</link>
+      <link>/learn-mongodb-docs/2.0/articles/node_knockout_article_1/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/articles/node_knockout_article_1/</guid>
+      <guid>/learn-mongodb-docs/2.0/articles/node_knockout_article_1/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;A Basic introduction to Mongo DB&lt;/h1&gt;
@@ -338,10 +338,10 @@ stream.on(&amp;quot;end&amp;quot;, function() {});
     
     <item>
       <title>Node Knockout, GridFS</title>
-      <link>/2.0/articles/node_knockout_article_2/</link>
+      <link>/learn-mongodb-docs/2.0/articles/node_knockout_article_2/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/articles/node_knockout_article_2/</guid>
+      <guid>/learn-mongodb-docs/2.0/articles/node_knockout_article_2/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;A primer for GridFS using the Mongo DB driver&lt;/h1&gt;
@@ -572,10 +572,10 @@ gridStore.open(function(err, gridStore) {
     
     <item>
       <title>Node Knockout, GEO</title>
-      <link>/2.0/articles/node_knockout_article_3/</link>
+      <link>/learn-mongodb-docs/2.0/articles/node_knockout_article_3/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/articles/node_knockout_article_3/</guid>
+      <guid>/learn-mongodb-docs/2.0/articles/node_knockout_article_3/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;The wonderful world of GEO spatial indexes in MongoDB&lt;/h1&gt;

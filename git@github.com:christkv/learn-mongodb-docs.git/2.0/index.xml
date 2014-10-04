@@ -3,7 +3,7 @@
   <channel>
       <title>Recent Content on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/2.0/index.xml/</link>
+    <link>/learn-mongodb-docs/2.0/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>Connecting To MongoDB</title>
-      <link>/2.0/tutorials/connecting/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/connecting/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/connecting/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/connecting/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Connecting To MongoDB&lt;/h1&gt;
@@ -281,10 +281,10 @@ MongoClient.connect(url, {
     
     <item>
       <title>Connection URI</title>
-      <link>/2.0/tutorials/urls/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/urls/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/urls/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/urls/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;The URL connection format&lt;/h2&gt;
@@ -448,10 +448,10 @@ MongoClient.connect(url, {
     
     <item>
       <title>CRUD Operations</title>
-      <link>/2.0/tutorials/crud_operations/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/crud_operations/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/crud_operations/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/crud_operations/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Driver CRUD Operations&lt;/h1&gt;
@@ -966,10 +966,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>Aggregation</title>
-      <link>/2.0/tutorials/aggregation/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/aggregation/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/aggregation/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/aggregation/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Using the Aggregation Framework&lt;/h1&gt;
@@ -1089,10 +1089,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>Streams</title>
-      <link>/2.0/tutorials/streams/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/streams/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/streams/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/streams/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Streams Support in the Node.js Driver&lt;/h1&gt;
@@ -1351,10 +1351,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>GridFS</title>
-      <link>/2.0/tutorials/gridfs/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/gridfs/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/gridfs/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/gridfs/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;GridFS Support&lt;/h1&gt;
@@ -1523,10 +1523,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>Logging</title>
-      <link>/2.0/tutorials/logging/</link>
+      <link>/learn-mongodb-docs/2.0/tutorials/logging/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/tutorials/logging/</guid>
+      <guid>/learn-mongodb-docs/2.0/tutorials/logging/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Logging&lt;/h1&gt;
@@ -1658,10 +1658,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>Mailing List</title>
-      <link>/2.0/community/mailing-list/</link>
+      <link>/learn-mongodb-docs/2.0/community/mailing-list/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/community/mailing-list/</guid>
+      <guid>/learn-mongodb-docs/2.0/community/mailing-list/</guid>
       <description>
 
 &lt;p&gt;The Node.js MongoDB driver has one main Mailing list.&lt;/p&gt;
@@ -1686,10 +1686,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>Driver introduction</title>
-      <link>/2.0/overview/introduction/</link>
+      <link>/learn-mongodb-docs/2.0/overview/introduction/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/overview/introduction/</guid>
+      <guid>/learn-mongodb-docs/2.0/overview/introduction/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;What is Node.js Native?&lt;/h2&gt;
@@ -1713,19 +1713,19 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>API Documentation</title>
-      <link>/2.0/api-docs/</link>
+      <link>/learn-mongodb-docs/2.0/api-docs/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/api-docs/</guid>
+      <guid>/learn-mongodb-docs/2.0/api-docs/</guid>
       <description>&lt;iframe src=&#34;/api/index.html&#34; frameborder=&#34;0&#34; style=&#34;overflow:hidden;height:100%;width:100%&#34; height=&#34;100%&#34; width=&#34;100%&#34;&gt;&lt;/iframe&gt;</description>
     </item>
     
     <item>
       <title>Installing The Driver</title>
-      <link>/2.0/overview/installing/</link>
+      <link>/learn-mongodb-docs/2.0/overview/installing/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/overview/installing/</guid>
+      <guid>/learn-mongodb-docs/2.0/overview/installing/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;Installing MongoDB Node.js driver using NPM&lt;/h2&gt;
@@ -1771,10 +1771,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>QuickStart</title>
-      <link>/2.0/overview/quickstart/</link>
+      <link>/learn-mongodb-docs/2.0/overview/quickstart/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/overview/quickstart/</guid>
+      <guid>/learn-mongodb-docs/2.0/overview/quickstart/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;QuickStart&lt;/h1&gt;
@@ -2036,10 +2036,10 @@ MongoClient.connect(url, function(err, db) {
     
     <item>
       <title>Contributing</title>
-      <link>/2.0/community/contributing/</link>
+      <link>/learn-mongodb-docs/2.0/community/contributing/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/community/contributing/</guid>
+      <guid>/learn-mongodb-docs/2.0/community/contributing/</guid>
       <description>
 
 &lt;p&gt;To contribute to the project &lt;em&gt;we encourage pull requests allowing for discussion of code changes.&lt;/em&gt;&lt;/p&gt;
@@ -2096,10 +2096,10 @@ npm install
     
     <item>
       <title>Node Knockout, Basics</title>
-      <link>/2.0/articles/node_knockout_article_1/</link>
+      <link>/learn-mongodb-docs/2.0/articles/node_knockout_article_1/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/articles/node_knockout_article_1/</guid>
+      <guid>/learn-mongodb-docs/2.0/articles/node_knockout_article_1/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;A Basic introduction to Mongo DB&lt;/h1&gt;
@@ -2423,10 +2423,10 @@ stream.on(&amp;quot;end&amp;quot;, function() {});
     
     <item>
       <title>Node Knockout, GridFS</title>
-      <link>/2.0/articles/node_knockout_article_2/</link>
+      <link>/learn-mongodb-docs/2.0/articles/node_knockout_article_2/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/articles/node_knockout_article_2/</guid>
+      <guid>/learn-mongodb-docs/2.0/articles/node_knockout_article_2/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;A primer for GridFS using the Mongo DB driver&lt;/h1&gt;

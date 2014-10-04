@@ -3,7 +3,7 @@
   <channel>
       <title>Communities on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/2.0/community/index.xml/</link>
+    <link>/learn-mongodb-docs/2.0/community/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>Mailing List</title>
-      <link>/2.0/community/mailing-list/</link>
+      <link>/learn-mongodb-docs/2.0/community/mailing-list/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/community/mailing-list/</guid>
+      <guid>/learn-mongodb-docs/2.0/community/mailing-list/</guid>
       <description>
 
 &lt;p&gt;The Node.js MongoDB driver has one main Mailing list.&lt;/p&gt;
@@ -39,10 +39,10 @@
     
     <item>
       <title>Contributing</title>
-      <link>/2.0/community/contributing/</link>
+      <link>/learn-mongodb-docs/2.0/community/contributing/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/community/contributing/</guid>
+      <guid>/learn-mongodb-docs/2.0/community/contributing/</guid>
       <description>
 
 &lt;p&gt;To contribute to the project &lt;em&gt;we encourage pull requests allowing for discussion of code changes.&lt;/em&gt;&lt;/p&gt;

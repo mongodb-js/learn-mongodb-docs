@@ -3,7 +3,7 @@
   <channel>
       <title>Api-Docs on  </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>/2.0/api-docs/index.xml/</link>
+    <link>/learn-mongodb-docs/2.0/api-docs/index.xml/</link>
     
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>API Documentation</title>
-      <link>/2.0/api-docs/</link>
+      <link>/learn-mongodb-docs/2.0/api-docs/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 UTC</pubDate>
       
-      <guid>/2.0/api-docs/</guid>
+      <guid>/learn-mongodb-docs/2.0/api-docs/</guid>
       <description>&lt;iframe src=&#34;/api/index.html&#34; frameborder=&#34;0&#34; style=&#34;overflow:hidden;height:100%;width:100%&#34; height=&#34;100%&#34; width=&#34;100%&#34;&gt;&lt;/iframe&gt;</description>
     </item>
     
