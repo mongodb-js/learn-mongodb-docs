@@ -30,7 +30,7 @@ setup:
 	
 	# Copy the repo over
 	cp -R $(2_0)/ $(1_4)/
-	git --git-dir $(1_4)/.git --work-tree $(1_4) checkout 1.4
+	git --git-dir $(1_4)/.git --work-tree $(1_4) checkout master
 	
 	# Install all dependencies
 	cd checkout/2.0; npm install
