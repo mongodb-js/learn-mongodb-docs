@@ -6,6 +6,7 @@ name = all
 1_4 = checkout/1.4
 # Base url used to generate 2.0 API docs
 baseurl_2_0 = /learn-mongodb-docs/2.0
+baseurl_2_0_regexp = \/learn-mongodb-docs
 baseurl = /learn-mongodb-docs
 # Git repo
 repo = ../dist
@@ -71,8 +72,10 @@ generate_1_4_docs:
 #
 generate_2_0_docs:		
 	echo "== Generating 2.0 docs"
+	cd $(2_0); git reset --hard
 	cd $(2_0); cp -R ./docs/history-header.md ./docs/content/meta/release-notes.md
 	cd $(2_0); more ./HISTORY.md >> ./docs/content/meta/release-notes.md
+	cd $(2_0); sed -i "" 's/#REPLACE/$(baseurl_2_0_regexp)/g' ./docs/config.toml
 	cd $(2_0); hugo -s docs/ -d ../public -b $(baseurl_2_0)
 	cd $(2_0); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(2_0); cp -R ./public/api/scripts ./public/.
