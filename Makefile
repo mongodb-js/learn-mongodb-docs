@@ -14,7 +14,7 @@ repo = ../dist
 #
 # Generate all
 #
-all: setup generate_main_docs
+all: setup generate_main_docs publish
 
 #
 # Setup all the sub repositories used for the documentation
@@ -41,7 +41,7 @@ setup:
 # Publishes to the local git repository
 # git subtree add --prefix public git@github.com:christkv/learn-mongodb-docs.git gh-pages --squash
 #
-publish: generate_main_docs
+publish:
 	cp -R ./public/. ./$(repo)/.
 	cd ./$(repo); git add -A
 	cd ./$(repo); git commit -m "Updated documentation"
