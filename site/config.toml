@@ -16,6 +16,11 @@ MetaDataFormat = "yaml"
     url = "2.0/"
     weight = -105
 [[menu.main]]
+    name = "core 1.X.X docs"
+    pre = "<i class='fa fa-file-text'></i>"
+    url = "core/"
+    weight = -105
+[[menu.main]]
     name = "modules"
     pre = "<i class='fa fa-book'></i>"
     weight = -40

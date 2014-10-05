@@ -4,9 +4,12 @@ JSDOC = jsdoc
 name = all
 2_0 = checkout/2.0
 1_4 = checkout/1.4
+CORE = checkout/core
 # Base url used to generate 2.0 API docs
 baseurl_2_0 = /learn-mongodb-docs/2.0
 baseurl_2_0_regexp = \/learn-mongodb-docs
+baseurl_core = /learn-mongodb-docs/core
+baseurl_core_regexp = \/learn-mongodb-docs
 baseurl = /learn-mongodb-docs
 # Git repo
 repo = ../dist
@@ -32,9 +35,13 @@ setup:
 	cp -R $(2_0)/ $(1_4)/
 	git --git-dir $(1_4)/.git --work-tree $(1_4) checkout master
 	
+	# Checkout the core module
+	git clone https://github.com/christkv/mongodb-core.git $(CORE)
+
 	# Install all dependencies
 	cd checkout/2.0; npm install
 	cd checkout/1.4; npm install
+	cd checkout/core; npm install
 	cd ../..
 
 #
@@ -50,7 +57,7 @@ publish:
 #
 # Generates main docs frame
 #
-generate_main_docs: generate_2_0_docs generate_1_4_docs
+generate_main_docs: generate_2_0_docs generate_1_4_docs generate_core_docs
 	echo "== Generating Main docs"
 	rm -rf ./public
 	hugo -s site/ -d ../public -b $(baseurl)
@@ -58,6 +65,8 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs
 	cp -R $(2_0)/public ./public/2.0
 	# Copy the 1.4 docs
 	cp -R $(1_4)/docs/sphinx-docs/build/html ./public/1.4
+	# Copy the core docs
+	cp -R $(CORE)/docs/sphinx-docs/build/html ./public/core
 
 #
 # Generates the driver 1.4 docs
@@ -67,6 +76,20 @@ generate_1_4_docs:
 	cd $(1_4); git reset --hard
 	cd $(1_4); $(NODE) dev/tools/build-docs.js
 	cd $(1_4); make --directory=./docs/sphinx-docs --file=Makefile html
+
+#
+# Generates the core docs
+#
+generate_core_docs:		
+	echo "== Generating core docs"
+	cd $(CORE); git reset --hard
+	cd $(CORE); cp -R ./docs/history-header.md ./docs/content/meta/release-notes.md
+	cd $(CORE); more ./HISTORY.md >> ./docs/content/meta/release-notes.md
+	cd $(CORE); sed -i "" 's/#REPLACE/$(baseurl_core_regexp)/g' ./docs/config.toml
+	cd $(CORE); hugo -s docs/ -d ../public -b $(baseurl_core)
+	cd $(CORE); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+	cd $(CORE); cp -R ./public/api/scripts ./public/.
+	cd $(CORE); cp -R ./public/api/styles ./public/.
 
 #
 # Generates the driver 2.0 docs
