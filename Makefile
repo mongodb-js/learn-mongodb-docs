@@ -67,6 +67,10 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs generate_core_docs
 	cp -R $(1_4)/docs/sphinx-docs/build/html ./public/1.4
 	# Copy the core docs
 	cp -R $(CORE)/public ./public/core
+	# Reset branches
+	git --git-dir $(2_0)/.git --work-tree $(2_0) reset --hard
+	git --git-dir $(1_4)/.git --work-tree $(1_4) reset --hard
+	git --git-dir $(CORE)/.git --work-tree $(CORE) reset --hard
 
 #
 # Generates the driver 1.4 docs
