@@ -66,7 +66,7 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs generate_core_docs
 	# Copy the 1.4 docs
 	cp -R $(1_4)/docs/sphinx-docs/build/html ./public/1.4
 	# Copy the core docs
-	cp -R $(CORE)/docs/sphinx-docs/build/html ./public/core
+	cp -R $(CORE)/public ./public/core
 
 #
 # Generates the driver 1.4 docs
