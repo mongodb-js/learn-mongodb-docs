@@ -121,7 +121,7 @@ Object Document Modeling Libraries
          * - **Forks**
            - 806
          * - **Watchers**
-           - 5533
+           - 5534
 
 .. topic:: mongo-model
 
