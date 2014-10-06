@@ -289,17 +289,20 @@
 
 <p>A collection instance has also had several changes made to it. Most importantly we now return the <code>mongodb-core</code> result objects directly with all the associated information returned from the server instead of the current selective information returned in the 1.4.x version.</p>
 
-<p>We&rsquo;ve added the following new methods
-* <code>collection.insertOne</code> Insert a single document.
-* <code>collection.insertMany</code> Insert an array of documents.
-* <code>collection.replaceOne</code> Replace an existing document fully.
-* <code>collection.updateOne</code> Update a single document.
-* <code>collection.updateMany</code> Update multiple documents in one go.
-* <code>collection.removeOne</code> Remove a single document.
-* <code>collection.removeMany</code> Remove multiple documents in one go.
-* <code>collection.findOneAndUpdate</code> Use findAndModify to update a document.
-* <code>collection.findOneAndRemove</code> Use findAndModify to remove a specific document.
-* <code>collection.findOneAndReplace</code> Use findAndModify to replace a specific document.</p>
+<p>We&rsquo;ve added the following new methods</p>
+
+<ul>
+<li><code>collection.insertOne</code> Insert a single document.</li>
+<li><code>collection.insertMany</code> Insert an array of documents.</li>
+<li><code>collection.replaceOne</code> Replace an existing document fully.</li>
+<li><code>collection.updateOne</code> Update a single document.</li>
+<li><code>collection.updateMany</code> Update multiple documents in one go.</li>
+<li><code>collection.removeOne</code> Remove a single document.</li>
+<li><code>collection.removeMany</code> Remove multiple documents in one go.</li>
+<li><code>collection.findOneAndUpdate</code> Use findAndModify to update a document.</li>
+<li><code>collection.findOneAndRemove</code> Use findAndModify to remove a specific document.</li>
+<li><code>collection.findOneAndReplace</code> Use findAndModify to replace a specific document.</li>
+</ul>
 
 <p>The current <code>insert</code>, <code>update</code> and <code>remove</code> methods are marked for deprecation and will be removed in a future 3.0 driver. These 3 methods now also return the full <code>mongodb-core</code> results and have had their third return value removed to ensure less compatibility problems with orchestration libraries like <code>async</code>.</p>
 
