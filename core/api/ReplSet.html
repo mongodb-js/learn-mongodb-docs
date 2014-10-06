@@ -77,7 +77,7 @@
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line71">line 71</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line88">line 88</a>
         </div>
         
     </div>
@@ -323,70 +323,6 @@
                     
                 
                 <p>The cursor factory class used for all query cursors</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options.host</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                <p>The server host</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options.port</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                <p>The server port</p></td>
         </tr>
 	
 	
@@ -978,7 +914,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1025">line 1025</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1009">line 1009</a>
         </div>
         
     </div>
@@ -1117,7 +1053,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1015">line 1015</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line999">line 999</a>
         </div>
         
     </div>
@@ -1256,7 +1192,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line963">line 963</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line947">line 947</a>
         </div>
         
     </div>
@@ -1463,7 +1399,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line759">line 759</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line747">line 747</a>
         </div>
         
     </div>
@@ -1567,7 +1503,7 @@ cursor instance
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="ReadPreference.html">ReadPreference</a></span>
 
 
             
@@ -1597,7 +1533,7 @@ cursor instance
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="Connection.html">Connection</a></span>
 
 
             
@@ -1687,6 +1623,29 @@ cursor instance
     
     
     
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>// Correctly execute ismaster command on the ReplSet using the cursor
+
+var Server = require('mongodb-core').Server,
+  test = require('assert');
+var server = new ReplSet([{host: 'localhost', port:31000}], {setName:'rs'});
+// Add event listeners
+server.on('connect', function(_server) {
+  // Execute the command
+  _server.command("system.$cmd", {ismaster: true}, function(err, result) {
+    test.equal(null, err)
+    _server.destroy();
+  });
+});
+
+// Start connection
+server.connect();</code></pre>
+    
+
+    
 </dd>
 
         
@@ -1700,7 +1659,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line643">line 643</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line631">line 631</a>
         </div>
         
     </div>
@@ -1766,12 +1725,12 @@ cursor instance
     <div class="nameContainer">
         <h4 class="name" id="connections">
             
-            connections<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{array}</span>
+            connections<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array.&lt;<a href="Connection.html">Connection</a>>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1092">line 1092</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1076">line 1076</a>
         </div>
         
     </div>
@@ -1847,7 +1806,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line949">line 949</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line933">line 933</a>
         </div>
         
     </div>
@@ -2030,13 +1989,13 @@ cursor instance
 	
         <tr>
             
-                <td class="name"><code>options.tailable</code></td>
+                <td class="name"><code>options.readPreference</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type"><a href="ReadPreference.html">ReadPreference</a></span>
 
 
             
@@ -2044,8 +2003,6 @@ cursor instance
             
             
                 <td class="default">
-                
-                    false
                 
                 </td>
             
@@ -2059,151 +2016,7 @@ cursor instance
                         
                     
                 
-                <p>Tailable flag set</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options.oplogReply</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>oplogReply flag set</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options.awaitdata</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>awaitdata flag set</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options.exhaust</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>exhaust flag set</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options.partial</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>partial flag set</p></td>
+                <p>Specify read preference if command supports it</p></td>
         </tr>
 	
 	
@@ -2280,6 +2093,45 @@ cursor instance
     
     
     
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>// Correctly find a document on the ReplSet using the cursor
+
+var Server = require('mongodb-core').Server,
+  test = require('assert');
+var server = new ReplSet([{host: 'localhost', port:31000}], {setName:'rs'});
+// Add event listeners
+server.on('connect', function(_server) {
+  // Execute the insert
+  _server.insert('integration_tests.inserts_example_replset_4', [{a:1}], {
+    writeConcern: {w:1}, ordered:true
+  }, function(err, results) {
+    test.equal(null, err);
+    test.equal(1, results.result.n);
+
+    // Execute the write
+    var cursor = _server.cursor('integration_tests.inserts_example_replset_4', {
+        find: 'integration_tests.example4'
+      , query: {a:1}
+    });
+
+    // Get the first document
+    cursor.next(function(err, doc) {
+      test.equal(null, err);
+      test.equal(1, doc.a);
+
+      _server.destroy();
+    });
+  });
+});
+
+// Start connection
+server.connect();</code></pre>
+    
+
+    
 </dd>
 
         
@@ -2293,7 +2145,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line696">line 696</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line684">line 684</a>
         </div>
         
     </div>
@@ -2364,7 +2216,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1064">line 1064</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1048">line 1048</a>
         </div>
         
     </div>
@@ -2396,8 +2248,6 @@ cursor instance
 		<th>Type</th>
 		
 		
-		<th>Default</th>
-		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -2414,18 +2264,12 @@ cursor instance
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="ReadPreference.html">ReadPreference</a></span>
 
 
             
             </td>
             
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
             
             
             <td class="description last">
@@ -2437,7 +2281,7 @@ cursor instance
                         
                     
                 
-                <p>Read preference for the connection</p></td>
+                <p>Specify read preference if command supports it</p></td>
         </tr>
 	
 	
@@ -2500,7 +2344,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1080">line 1080</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1064">line 1064</a>
         </div>
         
     </div>
@@ -2532,8 +2376,6 @@ cursor instance
 		<th>Type</th>
 		
 		
-		<th>Default</th>
-		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -2550,18 +2392,12 @@ cursor instance
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="ReadPreference.html">ReadPreference</a></span>
 
 
             
             </td>
             
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
             
             
             <td class="description last">
@@ -2573,7 +2409,7 @@ cursor instance
                         
                     
                 
-                <p>Read preference for the connection</p></td>
+                <p>Specify read preference if command supports it</p></td>
         </tr>
 	
 	
@@ -2636,7 +2472,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line884">line 884</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line872">line 872</a>
         </div>
         
     </div>
@@ -2886,6 +2722,33 @@ cursor instance
     
     
     
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>// Correctly insert a document using the ReplSet insert method
+
+var Server = require('mongodb-core').Server,
+  test = require('assert');
+var server = new ReplSet([{host: 'localhost', port:31000}], {setName:'rs'});
+// Add event listeners
+server.on('connect', function(_server) {
+  // Execute the insert
+  _server.insert('integration_tests.inserts_example_replset_1', [{a:1}], {
+    writeConcern: {w:1}, ordered:true
+  }, function(err, results) {
+    test.equal(null, err);
+    test.equal(1, results.result.n);
+
+    _server.destroy();
+  });
+});
+
+// Start connection
+server.connect();</code></pre>
+    
+
+    
 </dd>
 
         
@@ -2899,7 +2762,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line713">line 713</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line701">line 701</a>
         </div>
         
     </div>
@@ -2975,7 +2838,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1054">line 1054</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1038">line 1038</a>
         </div>
         
     </div>
@@ -3051,7 +2914,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line633">line 633</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line621">line 621</a>
         </div>
         
     </div>
@@ -3127,7 +2990,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line924">line 924</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line912">line 912</a>
         </div>
         
     </div>
@@ -3377,6 +3240,43 @@ cursor instance
     
     
     
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>// Correctly remove a document using the ReplSet remove method
+
+var Server = require('mongodb-core').Server,
+  test = require('assert');
+var server = new ReplSet([{host: 'localhost', port:31000}], {setName:'rs'});
+// Add event listeners
+server.on('connect', function(_server) {
+  // Execute the insert
+  _server.insert('integration_tests.inserts_example_replset_3', [{a:1}], {
+    writeConcern: {w:1}, ordered:true
+  }, function(err, results) {
+    test.equal(null, err);
+    test.equal(1, results.result.n);
+
+    // Execute the write
+    _server.remove('integration_tests.inserts_example_replset_3', [{
+      q: {a: 1}, limit: 1
+    }], {
+      writeConcern: {w:1}, ordered:true
+    }, function(err, results) {
+      test.equal(null, err);
+      test.equal(1, results.result.n);
+
+      _server.destroy();
+    });
+  });
+});
+
+// Start connection
+server.connect();</code></pre>
+    
+
+    
 </dd>
 
         
@@ -3390,7 +3290,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1035">line 1035</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1019">line 1019</a>
         </div>
         
     </div>
@@ -3506,7 +3406,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line904">line 904</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line892">line 892</a>
         </div>
         
     </div>
@@ -3756,6 +3656,43 @@ cursor instance
     
     
     
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>// Correctly update a document using the Server update method
+
+var Server = require('mongodb-core').Server,
+  test = require('assert');
+var server = new ReplSet([{host: 'localhost', port:31000}], {setName:'rs'});
+// Add event listeners
+server.on('connect', function(_server) {
+  // Execute the insert
+  _server.insert('integration_tests.inserts_example_replset_2', [{a:1}], {
+    writeConcern: {w:1}, ordered:true
+  }, function(err, results) {
+    test.equal(null, err);
+    test.equal(1, results.result.n);
+
+    // Execute the write
+    _server.update('integration_tests.inserts_example_replset_2', [{
+      q: {a: 1}, u: {'$set': {b:1}}
+    }], {
+      writeConcern: {w:1}, ordered:true
+    }, function(err, results) {
+      test.equal(null, err);
+      test.equal(1, results.result.n);
+
+      _server.destroy();
+    });
+  });
+});
+
+// Start connection
+server.connect();</code></pre>
+    
+
+    
 </dd>
 
         </dl>
@@ -3777,7 +3714,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1163">line 1163</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1147">line 1147</a>
         </div>
         
     </div>
@@ -3858,7 +3795,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1170">line 1170</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1154">line 1154</a>
         </div>
         
     </div>
@@ -4053,7 +3990,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1190">line 1190</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1174">line 1174</a>
         </div>
         
     </div>
@@ -4202,7 +4139,7 @@ cursor instance
     
         
         <div class="tag-source">
-            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1181">line 1181</a>
+            <a href="replset.js.html">lib/topologies/replset.js</a>, <a href="replset.js.html#line1165">line 1165</a>
         </div>
         
     </div>
@@ -4370,7 +4307,7 @@ cursor instance
                     
 
                     <footer>
-                        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Sun Oct 05 2014 15:05:37 GMT+0200 (CEST)
+                        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Mon Oct 06 2014 15:36:21 GMT+0200 (CEST)
                     </footer>
                 </div>
             </td>

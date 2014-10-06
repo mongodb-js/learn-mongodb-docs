@@ -158,6 +158,8 @@
                     
                     <li><a href="/learn-mongodb-docs/core/tutorials/logging/"> Logging </a> </li>
                     
+                    <li><a href="/learn-mongodb-docs/core/tutorials/cursor/"> Cursor </a> </li>
+                    
                 </ul>
               
               </li>
@@ -263,205 +265,135 @@ cd myproject
 
 <p>Let&rsquo;s create a new <strong>app.js</strong> file that we will use to show the basic CRUD operations using the MongoDB driver.</p>
 
-<p>First let&rsquo;s add code to connect to the server and the database <strong>myproject</strong>.</p>
+<p>First let&rsquo;s add code to connect to the server. Notice that there is no concept of a database here and we use the topology directly to perform the connection.</p>
 
-<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
+<pre><code class="language-js">var Server = require('mongodb-core').Server
   , assert = require('assert');
 
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&quot;Connected correctly to server&quot;);
-
-  db.close();
+// Set up server connection
+var server = new Server({
+    host: 'localhost'
+  , port: 27017
+  , reconnect: true
+  , reconnectInterval: 50
 });
+
+// Add event listeners
+server.on('connect', function(_server) {
+  console.log('connected');
+  test.done();
+});
+
+server.on('close', function() {
+  console.log('closed');
+});
+
+server.on('reconnect', function() {
+  console.log('reconnect');
+});
+
+// Start connection
+server.connect();
 </code></pre>
 
-<p>Given that you booted up the <strong>mongod</strong> process earlier the application should connect successfully and print <strong>Connected correctly to server</strong> to the console.</p>
+<p>To connect to a replicaset we would use the <code>ReplSet</code> class and for a set of Mongos proxies we use the <code>Mongos</code> class. Each topology class offer the same CRUD operations and you operate on the topology directly. Let&rsquo;s look at an example exercising all the different available CRUD operations.</p>
 
-<p>Let&rsquo;s Add some code to show the different CRUD operations available.</p>
+<pre><code class="language-js">var Server = require('mongodb-core').Server
+  , assert = require('assert');
 
-<h2 id="toc_4">Inserting a Document</h2>
+// Set up server connection
+var server = new Server({
+    host: 'localhost'
+  , port: 27017
+  , reconnect: true
+  , reconnectInterval: 50
+});
 
-<p>Let&rsquo;s create a function that will insert some documents for us.</p>
+// Add event listeners
+server.on('connect', function(_server) {
+  console.log('connected');
 
-<pre><code class="language-js">var insertDocuments = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection('documents');
-  // Insert some documents
-  collection.insert([
-    {a : 1}, {a : 2}, {a : 3}
-  ], function(err, result) {
-    assert.equal(err, null);
-    assert.equal(3, result.result.n);
-    assert.equal(3, result.ops.length);
-    console.log(&quot;Inserted 3 document into the document collection&quot;);
-    callback(result);
+  // Execute the ismaster command
+  _server.command('system.$cmd', {ismaster: true}, function(err, result) {
+
+    // Perform a document insert
+    _server.insert('myproject.inserts1', [{a:1}, {a:2}], {
+      writeConcern: {w:1}, ordered:true
+    }, function(err, results) {
+      assert.equal(null, err);
+      assert.equal(2, results.result.n);      
+
+      // Perform a document update
+      _server.update('myproject.inserts1', [{
+        q: {a: 1}, u: {'$set': {b:1}}
+      }], {
+        writeConcern: {w:1}, ordered:true
+      }, function(err, results) {
+        assert.equal(null, err);
+        assert.equal(1, results.result.n);
+
+        // Remove a document
+        _server.remove('myproject.inserts1', [{
+          q: {a: 1}, limit: 1
+        }], {
+          writeConcern: {w:1}, ordered:true
+        }, function(err, results) {
+          assert.equal(null, err);
+          assert.equal(1, results.result.n);
+
+          // Get a document
+          var cursor = _server.cursor('integration_tests.inserts_example4', {
+              find: 'integration_tests.example4'
+            , query: {a:1}
+          });
+
+          // Get the first document
+          cursor.next(function(err, doc) {
+            assert.equal(null, err);
+            assert.equal(2, doc.a);
+
+            // Execute the ismaster command
+            _server.command(&quot;system.$cmd&quot;
+              , {ismaster: true}, function(err, result) {
+                assert.equal(null, err)
+                _server.destroy();              
+            });
+          });
+      });
+    });
+
+    test.done();
   });
-}
+});
+
+server.on('close', function() {
+  console.log('closed');
+});
+
+server.on('reconnect', function() {
+  console.log('reconnect');
+});
+
+// Start connection
+server.connect();
 </code></pre>
 
-<p>The insert command will return a results object that contains several fields that might be useful.</p>
+<p>The core driver does not contain any helpers or abstractions only the core crud operations. These consist of the following commands.</p>
 
 <ul>
-<li><strong>result</strong> Contains the result document from MongoDB</li>
-<li><strong>ops</strong> Contains the documents inserted with added <strong>_id</strong> fields</li>
-<li><strong>connection</strong> Contains the connection used to perform the insert</li>
+<li><code>insert</code>, Insert takes an array of 1 or more documents to be inserted against the topology and allows you to specify a write concern and if you wish to execute the inserts in order or out of order.</li>
+<li><code>update</code>, Update takes an array of 1 or more update commands to be executed against the server topology and also allows you to specify a write concern and if you wish to execute the updates in order or out of order.</li>
+<li><code>remove</code>, Remove takes an array of 1 or more remove commands to be executed against the server topology and also allows you to specify a write concern and if you wish to execute the removes in order or out of order.</li>
+<li><code>cursor</code>, Returns you a cursor for either the &lsquo;virtual&rsquo; <code>find</code> command, a command that returns a cursor id or a plain cursor id. Read the cursor tutorial for more inn depth coverage.</li>
+<li><code>command</code>, Executes a command against MongoDB and returns the result.</li>
+<li><code>auth</code>, Authenticates the current topology using a supported authentication scheme.</li>
 </ul>
 
-<p>Let&rsquo;s add call the <strong>insertDocuments</strong> command to the <strong>MongoClient.connect</strong> method callback.</p>
+<p>The Core Driver is a building block for library builders and is not meant for usage by end users as it lacks a lot of features the end user might need such as automatic buffering of operations when a primary is changing in a replicaset or the db and collections abstraction.</p>
 
-<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
+<h2 id="toc_4">Next steps</h2>
 
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&quot;Connected correctly to server&quot;);
-
-  insertDocuments(db, function() {
-    db.close();
-  });
-});
-</code></pre>
-
-<p>We can now run the update <strong>app.js</strong> file.</p>
-
-<pre><code>node app.js
-</code></pre>
-
-<p>You should see the following output after running the <strong>app.js</strong> file.</p>
-
-<pre><code>Connected correctly to server
-Inserted 3 document into the document collection
-</code></pre>
-
-<h2 id="toc_5">Updating a document</h2>
-
-<p>Let&rsquo;s look at how to do a simple document update by adding a new field <strong>b</strong> to the document that has the field <strong>a</strong> set to <strong>2</strong>.</p>
-
-<pre><code class="language-js">var updateDocument = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection('documents');
-  // Insert some documents
-  collection.update({ a : 2 }
-    , { $set: { b : 1 } }, function(err, result) {
-    assert.equal(err, null);
-    assert.equal(1, result.result.n);
-    console.log(&quot;Updated the document with the field a equal to 2&quot;);
-    callback(result);
-  });  
-}
-</code></pre>
-
-<p>The method will update the first document where the field <strong>a</strong> is equal to <strong>2</strong> by adding a new field <strong>b</strong> to the document set to <strong>1</strong>. Let&rsquo;s update the callback function from <strong>MongoClient.connect</strong> to include the update method.</p>
-
-<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&quot;Connected correctly to server&quot;);
-
-  insertDocuments(db, function() {
-    updateDocument(db, function() {
-      db.close();
-    });
-  });
-});
-</code></pre>
-
-<h2 id="toc_6">Remove a document</h2>
-
-<p>Next lets remove the document where the field <strong>a</strong> equals to <strong>3</strong>.</p>
-
-<pre><code class="language-js">var removeDocument = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection('documents');
-  // Insert some documents
-  collection.remove({ a : 3 }, function(err, result) {
-    assert.equal(err, null);
-    assert.equal(1, result.result.n);
-    console.log(&quot;Removed the document with the field a equal to 3&quot;);
-    callback(result);
-  });    
-}
-</code></pre>
-
-<p>This will remove the first document where the field <strong>a</strong> equals to <strong>3</strong>. Let&rsquo;s add the method to the <strong>MongoClient.connect</strong> callback function.</p>
-
-<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&quot;Connected correctly to server&quot;);
-
-  insertDocuments(db, function() {
-    updateDocument(db, function() {
-      removeDocument(db, function() {
-        db.close();
-      });
-    });
-  });
-});
-</code></pre>
-
-<p>Finally let&rsquo;s retrieve all the documents using a simple find.</p>
-
-<h2 id="toc_7">Find All Documents</h2>
-
-<p>We will finish up the Quickstart CRUD methods by performing a simple query that returns all the documents matching the query.</p>
-
-<pre><code class="language-js">var findDocuments = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection('documents');
-  // Insert some documents
-  collection.find({}).toArray(function(err, docs) {
-    assert.equal(err, null);
-    assert.equal(2, docs.length);
-    console.log(&quot;Found the following records&quot;);
-    console.dir(docs)
-    callback(docs);
-  });      
-}
-</code></pre>
-
-<p>This query will return all the documents in the <strong>documents</strong> collection. Since we removed a document the total documents returned is <strong>2</strong>. Finally let&rsquo;s add the findDocument method to the <strong>MongoClient.connect</strong> callback.</p>
-
-<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&quot;Connected correctly to server&quot;);
-
-  insertDocuments(db, function() {
-    updateDocument(db, function() {
-      removeDocument(db, function() {
-        findDocuments(db, function() {
-          db.close();
-        });
-      });
-    });
-  });
-});
-</code></pre>
-
-<p>This concludes the QuickStart of connecting and performing some Basic operations using the MongoDB Node.js driver. For more detailed information you can look at the tutorials covering more specific topics of interest.</p>
+<p>The next steps is to get more inn depth information about how the different aspects of the core driver works and how to leverage them to extend the functionality of the cursors. Please view the tutorials for more detailed information.</p>
 
                       
                       <div id="disqus_thread"></div>

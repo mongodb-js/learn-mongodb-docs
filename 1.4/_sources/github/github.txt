@@ -119,9 +119,9 @@ Object Document Modeling Libraries
          * - **Clone Url**
            - https://github.com/LearnBoost/mongoose.git
          * - **Forks**
-           - 806
+           - 807
          * - **Watchers**
-           - 5534
+           - 5539
 
 .. topic:: mongo-model
 
@@ -204,7 +204,7 @@ Content Management Systems
          :header-rows: 0
 
          * - **Activity Level**
-           - .. image:: ../static/active.png
+           - .. image:: ../static/nonactive.png
          * - **Last push**
            - 13:3:55 on 4/5/2014
          * - **Homepage**

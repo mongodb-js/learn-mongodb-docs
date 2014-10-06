@@ -8,7 +8,7 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/learn-mongodb-docs/core/img/favicon.png">
 
-    <title>Driver introduction</title>
+    <title>Cursor</title>
 
     <link href="/learn-mongodb-docs/core/css/bootstrap-theme.css" rel="stylesheet">
     <link href="/learn-mongodb-docs/core/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -86,16 +86,16 @@
           
               
 
-            <li class="sub-menu active">
+            <li class="sub-menu">
             <a href="javascript:;" class="">
                 <i class='fa fa-road'></i>
                 
                 <span>getting started</span>
-                <span class="menu-arrow fa fa-angle-down"></span>
+                <span class="menu-arrow fa fa-angle-right"></span>
             </a>
-                <ul class="sub open">
+                <ul class="sub">
                     
-                    <li class="active"><a href="/learn-mongodb-docs/core/overview/introduction/"> Introduction </a> </li>
+                    <li><a href="/learn-mongodb-docs/core/overview/introduction/"> Introduction </a> </li>
                     
                     <li><a href="/learn-mongodb-docs/core/overview/installing/"> Installing The Driver </a> </li>
                     
@@ -143,14 +143,14 @@
           
               
 
-            <li class="sub-menu">
+            <li class="sub-menu active">
             <a href="javascript:;" class="">
                 <i class='fa fa-book'></i>
                 
                 <span>tutorials</span>
-                <span class="menu-arrow fa fa-angle-right"></span>
+                <span class="menu-arrow fa fa-angle-down"></span>
             </a>
-                <ul class="sub">
+                <ul class="sub open">
                     
                     <li><a href="/learn-mongodb-docs/core/tutorials/connecting/"> Connecting To MongoDB </a> </li>
                     
@@ -158,7 +158,7 @@
                     
                     <li><a href="/learn-mongodb-docs/core/tutorials/logging/"> Logging </a> </li>
                     
-                    <li><a href="/learn-mongodb-docs/core/tutorials/cursor/"> Cursor </a> </li>
+                    <li class="active"><a href="/learn-mongodb-docs/core/tutorials/cursor/"> Cursor </a> </li>
                     
                 </ul>
               
@@ -166,7 +166,7 @@
           
             <li> <a href="https://jira.mongodb.org/browse/NODE" target="blank"><i class='fa fa-life-ring'></i>Issues & Help</a> </li>
             
-              <li><a href="https://github.com/mongodb/node-mongodb-native/docs/content/overview/introduction.md" target="blank"><i class='fa fa-edit'></i> Refine this Page</a> </li>
+              <li><a href="https://github.com/mongodb/node-mongodb-native/docs/content/tutorials/cursor.md" target="blank"><i class='fa fa-edit'></i> Refine this Page</a> </li>
             
         </ul>
         
@@ -195,7 +195,7 @@
                   <div class="col-md-1">
                       
                       
-                      <a class="navigation prev" href="/overview/quickstart">
+                      <a class="navigation prev" href="/tutorials/logging">
                       <i class="fa fa-angle-left"></i>
                       </a>
                       
@@ -210,22 +210,86 @@
 
 
 
-<h2 id="toc_0">What is MongoDB Core</h2>
+<h1 id="toc_0">Extending the functionality of the Driver Cursor</h1>
 
-<p>The MongoDB core driver is the minimal viable driver and contains no abstractions of any kind. It&rsquo;s the basis on what the 2.X or higher driver builds on.</p>
+<p>The Core Driver cursor is a very minimalist cursor by design and only supports a single <code>next</code> method to iterate over the query results. In this tutorial we will examine how we can extend the cursor to support an additional <code>toArray</code> method and show how we can configure our topology to always return the new extended Cursor on all <code>cursor</code> method calls.</p>
 
-<h2 id="toc_1">Who would use this ?</h2>
+<p>Let&rsquo;s look at the code.</p>
 
-<p>The target audience of this module are developers building higher level abstractions like ODM&rsquo;s, queue managers, caches and others where the additional layers of abstraction and helpers in the main driver is not needed. The lack of all of these abstractions should also help if you are trying to implement your own driver in another language or plan to write your own specialized MongoDB Node.js driver.</p>
+<pre><code class="language-js">var Server = require('mongodb-core').Server
+  , Cursor = require('mongodb-core').Cursor
+  , inherits = require('util').inherits
 
-<h2 id="toc_2">Next Steps</h2>
+//
+// Create an extended cursor that adds a toArray function
+var ExtendedCursor = function(bson, ns, cmd, options, connection, callbacks, options) {
+  Cursor.apply(this, Array.prototype.slice.call(arguments, 0));
+  var self = this;
 
-<ul>
-<li><a href="/overview/installing">Install Driver</a></li>
-<li><a href="/overview/quickstart">Quick start</a></li>
-<li><a href="/community/mailing-list">Join the Mailing List</a></li>
-<li><a href="https://github.com/christkv/mongodb-core">Star us on GitHub</a></li>
-</ul>
+  // Resolve all the next
+  var getAllNexts = function(items, callback) {
+    self.next(function(err, item) {
+      if(err) return callback(err);
+      if(item == null) return callback(null, null);
+      items.push(item);
+      getAllNexts(items, callback);
+    });
+  }
+
+  // Adding a toArray function to the cursor
+  this.toArray = function(callback) {
+    var items = [];
+
+    getAllNexts(items, function(err, r) {
+      if(err) return callback(err, null);          
+      callback(null, items);
+    });
+  }
+}
+
+// Extend the Cursor
+inherits(ExtendedCursor, Cursor);
+
+// Connect using new cursor
+var server = new Server({
+    host: 'localhost'
+  , port: 27017
+  , cursorFactory: ExtendedCursor
+});
+
+// Wait for the connection event
+server.on('connect', function(server) {
+  // Execute find
+  var cursor = _server.cursor('db.test', {
+      find: f(&quot;%s.inserts_extend_cursors&quot;, configuration.db)
+    , query: {}
+  });
+
+  // Execute next
+  cursor.toArray(function(err, items) {
+    test.equal(null, err);
+
+    // Execute find
+    var cursor = _server.cursor('db.test', {
+        find: f(&quot;%s.inserts_extend_cursors&quot;, configuration.db)
+      , query: {}
+    }, {cursorFactory: ExtendedCursor});
+
+    // Execute next
+    cursor.toArray(function(err, items) {
+      test.equal(null, err);
+      server.destroy();
+    });
+  });
+});
+
+// Start connecting
+server.connect();
+</code></pre>
+
+<p>It&rsquo;s fairly straight forward to create the new cursor factory. We extend the <code>Cursor</code> class and add the new <code>toArray</code> method. We then specify the new <code>ExtendedCursor</code> factory as the <code>cursorFactory</code> when we create the new <code>Server</code> connection. From then on every time we call the <code>cursor</code> method we receive an instance of the <code>ExtendedCursor</code> that we specified. We can even override a specific <code>cursor</code> method call by passing it a different <code>cursorFactory</code> in the options allowing for complete flexibility in using different types of cursor.</p>
+
+<p>That covers how to customize the cursor for your needs.</p>
 
                       
                       <div id="disqus_thread"></div>
@@ -249,7 +313,7 @@
                 <div class="col-md-1">
                     
                     
-                    <a class="navigation next" href="/overview/installing">
+                    <a class="navigation next" href="/tutorials/connecting">
                         <i class="fa fa-angle-right"> </i>
                     </a>
                     
