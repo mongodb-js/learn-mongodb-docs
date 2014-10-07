@@ -6,11 +6,17 @@ name = all
 1_4 = checkout/1.4
 CORE = checkout/core
 # Base url used to generate 2.0 API docs
-baseurl_2_0 = /learn-mongodb-docs/2.0
-baseurl_2_0_regexp = \/learn-mongodb-docs
-baseurl_core = /learn-mongodb-docs/core
-baseurl_core_regexp = \/learn-mongodb-docs
-baseurl = /learn-mongodb-docs
+# baseurl_2_0 = /learn-mongodb-docs/2.0
+# baseurl_2_0_regexp = \/learn-mongodb-docs
+# baseurl_core = /learn-mongodb-docs/core
+# baseurl_core_regexp = \/learn-mongodb-docs
+# baseurl = /learn-mongodb-docs
+baseurl_2_0 = /node-mongodb-native/2.0
+baseurl_2_0_regexp = \/node-mongodb-native
+baseurl_core = /node-mongodb-native/core
+baseurl_core_regexp = \/node-mongodb-native
+baseurl = /node-mongodb-native
+
 # Git repo
 repo = ../dist
 
