@@ -26,7 +26,7 @@ Web frameworks using MongoDB
          * - **Forks**
            - 8
          * - **Watchers**
-           - 25
+           - 26
 
 .. topic:: caboose
 
@@ -111,7 +111,7 @@ Object Document Modeling Libraries
          * - **Activity Level**
            - .. image:: ../static/active.png
          * - **Last push**
-           - 15:23:4 on 6/9/2014
+           - 16:5:57 on 6/9/2014
          * - **Homepage**
            - http://http://mongoosejs.com
          * - **Url**
@@ -119,9 +119,9 @@ Object Document Modeling Libraries
          * - **Clone Url**
            - https://github.com/LearnBoost/mongoose.git
          * - **Forks**
-           - 807
+           - 808
          * - **Watchers**
-           - 5540
+           - 5546
 
 .. topic:: mongo-model
 
@@ -314,7 +314,7 @@ Wrapper libraries to ease the use of development or provide simple ODM like beha
          * - **Forks**
            - 17
          * - **Watchers**
-           - 134
+           - 135
 
 .. topic:: node-mongodb-wrapper
 
@@ -818,7 +818,7 @@ Libraries or applications for continous integration
          :header-rows: 0
 
          * - **Activity Level**
-           - .. image:: ../static/active.png
+           - .. image:: ../static/nonactive.png
          * - **Last push**
            - 18:12:56 on 4/5/2014
          * - **Homepage**
