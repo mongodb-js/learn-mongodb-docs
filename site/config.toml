@@ -11,6 +11,16 @@ MetaDataFormat = "yaml"
     url = "1.4/"
     weight = -115
 [[menu.main]]
+    name = "Learn Mongo DB"
+    pre = "<i class='fa fa-file-text'></i>"
+    url = "http://learnmongodbthehardway.com"
+    weight = -114
+[[menu.main]]
+    name = "Mongo DB Docs"
+    pre = "<i class='fa fa-file-text'></i>"
+    url = "http://learnmongodbthehardway.com"
+    weight = -113
+[[menu.main]]
     name = "driver 2.0.X docs"
     pre = "<i class='fa fa-file-text'></i>"
     url = "2.0/"
