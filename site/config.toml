@@ -6,31 +6,26 @@ MetaDataFormat = "yaml"
   group = "groups"
 
 [[menu.main]]
-    name = "driver 1.4.X docs"
+    name = "1.4 Driver Docs"
     pre = "<i class='fa fa-file-text'></i>"
-    url = "1.4/"
+    url = "/1.4"
     weight = -115
 [[menu.main]]
-    name = "Learn Mongo DB"
+    name = "2.0 Driver Docs"
     pre = "<i class='fa fa-file-text'></i>"
-    url = "http://learnmongodbthehardway.com"
-    weight = -114
+    url = "/2.0"
+    weight = -110
+[[menu.main]]
+    name = "1.1 Core Docs"
+    pre = "<i class='fa fa-file-text'></i>"
+    url = "/core"
+    weight = -110
 [[menu.main]]
     name = "Mongo DB Docs"
     pre = "<i class='fa fa-file-text'></i>"
     url = "http://mongodb.org"
     weight = -113
 [[menu.main]]
-    name = "driver 2.0.X docs"
-    pre = "<i class='fa fa-file-text'></i>"
-    url = "2.0/"
-    weight = -110
-[[menu.main]]
-    name = "core 1.X.X docs"
-    pre = "<i class='fa fa-file-text'></i>"
-    url = "core/"
-    weight = -105
-[[menu.main]]
-    name = "modules"
+    name = "/modules"
     pre = "<i class='fa fa-book'></i>"
     weight = -40
