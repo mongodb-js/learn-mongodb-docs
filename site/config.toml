@@ -14,18 +14,18 @@ MetaDataFormat = "yaml"
     name = "2.0 Driver Docs"
     pre = "<i class='fa fa-file-text'></i>"
     url = "/2.0"
-    weight = -110
+    weight = -114
 [[menu.main]]
     name = "1.1 Core Docs"
     pre = "<i class='fa fa-file-text'></i>"
     url = "/core"
-    weight = -110
+    weight = -113
 [[menu.main]]
     name = "Mongo DB Docs"
     pre = "<i class='fa fa-file-text'></i>"
     url = "http://mongodb.org"
-    weight = -113
+    weight = -112
 [[menu.main]]
-    name = "/modules"
+    name = "modules"
     pre = "<i class='fa fa-book'></i>"
-    weight = -40
+    weight = -111

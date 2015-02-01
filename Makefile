@@ -34,7 +34,7 @@ setup:
 	mkdir checkout
 	
 	# Checkout all the modules for sub docs
-	git clone https://github.com/mongodb/node-mongodb-native.git $(2_0)
+	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_0)
 	git --git-dir $(2_0)/.git --work-tree $(2_0) checkout 2.0
 	
 	# Copy the repo over
@@ -42,7 +42,7 @@ setup:
 	git --git-dir $(1_4)/.git --work-tree $(1_4) checkout master
 	
 	# Checkout the core module
-	git clone https://github.com/christkv/mongodb-core.git $(CORE)
+	git clone --depth 1 --no-single-branch https://github.com/christkv/mongodb-core.git $(CORE)
 
 	# Install all dependencies
 	cd checkout/2.0; npm install
