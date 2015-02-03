@@ -26,6 +26,11 @@ repo = ../dist
 all: setup generate_main_docs publish
 
 #
+# Refresh and publish
+#
+refresh_publish: refresh generate_main_docs publish
+
+#
 # Setup all the sub repositories used for the documentation
 #
 setup:
@@ -49,6 +54,14 @@ setup:
 	cd checkout/1.4; npm install
 	cd checkout/core; npm install
 	cd ../..
+
+#
+# Pull any new content for the repos
+#
+refresh:
+	cd $(1_4);git pull
+	cd $(2_0);git pull
+	cd $(CORE);git pull
 
 #
 # Publishes to the local git repository
