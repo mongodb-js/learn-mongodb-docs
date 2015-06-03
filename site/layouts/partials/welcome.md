@@ -1,6 +1,6 @@
 ## Welcome To The MongoDB and Node.JS Site
 
-Node.js Native is the MongoDB official Node.js driver allowing you to use MongoDB in you applications.
+Node.js Native is the MongoDB official Node.js driver allowing you to use MongoDB in your applications.
 
 This site contains information about the MongoDB driver as well as tutorials, articles and information about using MongoDB with Node.js.
 
