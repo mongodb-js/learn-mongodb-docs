@@ -1,31 +1,6 @@
-baseurl = "http://mongodb.github.io"
-MetaDataFormat = "yaml"
+baseurl = "/mongo-nodejs-driver/"
+languageCode = "en-us"
+title = "MongoDB Node.js Driver"
+canonifyurls = false
 
-[indexes]
-  tag = "tags"
-  group = "groups"
-
-[[menu.main]]
-    name = "1.4 Driver Docs"
-    pre = "<i class='fa fa-file-text'></i>"
-    url = "http://mongodb.github.com/node-mongodb-native/1.4"
-    weight = -115
-[[menu.main]]
-    name = "2.0 Driver Docs"
-    pre = "<i class='fa fa-file-text'></i>"
-    url = "http://mongodb.github.com/node-mongodb-native/2.0"
-    weight = -114
-[[menu.main]]
-    name = "1.1 Core Docs"
-    pre = "<i class='fa fa-file-text'></i>"
-    url = "http://mongodb.github.com/node-mongodb-native/core"
-    weight = -113
-[[menu.main]]
-    name = "Mongo DB Docs"
-    pre = "<i class='fa fa-file-text'></i>"
-    url = "http://mongodb.org"
-    weight = -112
-[[menu.main]]
-    name = "modules"
-    pre = "<i class='fa fa-book'></i>"
-    weight = -111
+githubRepo = "node-mongodb-native"

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     {{ partial "meta.html"}}
-    <link rel="shortcut icon" href="{{.Site.BaseURL}}/s/img/favicon.png">
+    <link rel="shortcut icon" href="{{.Site.BaseURL}}/img/favicon.png">
 
     <title>{{.Title}}</title>
 
@@ -14,25 +14,18 @@
   {{ partial "header/main.html" . }}
   <!--header end-->
 
-  {{ partial "hero.html" . }}
-
-  <!-- Main content -->
-  <div class="container" id="mainContent">
+  <div id="promo" class="jumbotron">
+    <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        {{ partial "introduction.html" . }}
-
-        {{ partial "features.html" . }}
-
-        {{ partial "quickStart.html" . }}
+      <div class="col-md-2"></div>
+      <div class="col-md-6">
+        <h1>404: Page not found</h1>
       </div>
-      <div class="col-md-4">
-        {{ partial "releases.html" . }}
-        {{ partial "mongodbUniversity.html" . }}
-     </div>
+      <div class="col-md-2" id="mongodbJVMlogo"></div>
+    </div>
     </div>
   </div>
-  <!-- End main content -->
+
 
   <!-- Footer -->
   <div class="container">
