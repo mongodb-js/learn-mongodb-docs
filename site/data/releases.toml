@@ -2,17 +2,18 @@ current = "3.0.3"
 
 [[versions]]
   version = "2.0 Driver"
+  status = "current"
   docs = "./2.0"
   api = "./2.0/api"
 
 [[versions]]
   version = "1.4 Driver"
-  status = "current"
+  status = ""
   docs = "./1.4"
   api = "./1.4/api-generated/index.html"
 
 [[versions]]
   version = "1.2 Core Driver"
-  status = "current"
+  status = ""
   docs = "./core"
   api = "./core/api"
