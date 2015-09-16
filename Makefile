@@ -106,10 +106,7 @@ generate_1_4_docs:
 generate_core_docs:		
 	echo "== Generating core docs"
 	cd $(CORE); git reset --hard
-	cd $(CORE); cp -R ./docs/history-header.md ./docs/content/meta/release-notes.md
-	cd $(CORE); more ./HISTORY.md >> ./docs/content/meta/release-notes.md
-	cd $(CORE); sed -i "" 's/#REPLACE/$(baseurl_core_regexp)/g' ./docs/config.toml
-	cd $(CORE); hugo -s docs/ -d ../public -b $(baseurl_core)
+	cd $(CORE); hugo -s docs/reference -d ../../public -b $(baseurl_core)
 	cd $(CORE); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(CORE); cp -R ./public/api/scripts ./public/.
 	cd $(CORE); cp -R ./public/api/styles ./public/.
