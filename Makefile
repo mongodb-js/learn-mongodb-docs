@@ -3,6 +3,7 @@ NPM = npm
 JSDOC = jsdoc
 name = all
 2_0 = checkout/2.0
+2_1 = checkout/2.1
 1_4 = checkout/1.4
 CORE = checkout/core
 # Base url used to generate 2.0 API docs
@@ -13,6 +14,8 @@ CORE = checkout/core
 # baseurl = /learn-mongodb-docs
 baseurl_2_0 = /node-mongodb-native/2.0
 baseurl_2_0_regexp = \/node-mongodb-native
+baseurl_2_1 = /node-mongodb-native/2.1
+baseurl_2_1_regexp = \/node-mongodb-native
 baseurl_core = /node-mongodb-native/core
 baseurl_core_regexp = \/node-mongodb-native
 baseurl = /node-mongodb-native
@@ -37,19 +40,24 @@ setup:
 	# Create generation directory
 	rm -rf checkout
 	mkdir checkout
-	
+
 	# Checkout all the modules for sub docs
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_0)
 	git --git-dir $(2_0)/.git --work-tree $(2_0) checkout 2.0
-	
+
+	# Checkout all the modules for sub docs
+	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_1)
+	git --git-dir $(2_1)/.git --work-tree $(2_1) checkout 2.1
+
 	# Copy the repo over
 	cp -R $(2_0)/ $(1_4)/
 	git --git-dir $(1_4)/.git --work-tree $(1_4) checkout master
-	
+
 	# Checkout the core module
 	git clone --depth 1 --no-single-branch https://github.com/christkv/mongodb-core.git $(CORE)
 
 	# Install all dependencies
+	cd checkout/2.1; npm install
 	cd checkout/2.0; npm install
 	cd checkout/1.4; npm install
 	cd checkout/core; npm install
@@ -61,6 +69,7 @@ setup:
 refresh:
 	cd $(1_4);git pull
 	cd $(2_0);git pull
+	cd $(2_1);git pull
 	cd $(CORE);git pull
 
 #
@@ -76,10 +85,12 @@ publish:
 #
 # Generates main docs frame
 #
-generate_main_docs: generate_2_0_docs generate_1_4_docs generate_core_docs
+generate_main_docs: generate_2_1_docs generate_2_0_docs generate_1_4_docs generate_core_docs
 	echo "== Generating Main docs"
 	rm -rf ./public
 	hugo -s site/ -d ../public -b $(baseurl)
+	# Copy the 2.1 docs
+	cp -R $(2_1)/public ./public/2.1
 	# Copy the 2.0 docs
 	cp -R $(2_0)/public ./public/2.0
 	# Copy the 1.4 docs
@@ -87,6 +98,7 @@ generate_main_docs: generate_2_0_docs generate_1_4_docs generate_core_docs
 	# Copy the core docs
 	cp -R $(CORE)/public ./public/core
 	# Reset branches
+	git --git-dir $(2_1)/.git --work-tree $(2_1) reset --hard
 	git --git-dir $(2_0)/.git --work-tree $(2_0) reset --hard
 	git --git-dir $(1_4)/.git --work-tree $(1_4) reset --hard
 	git --git-dir $(CORE)/.git --work-tree $(CORE) reset --hard
@@ -103,7 +115,7 @@ generate_1_4_docs:
 #
 # Generates the core docs
 #
-generate_core_docs:		
+generate_core_docs:
 	echo "== Generating core docs"
 	cd $(CORE); git reset --hard
 	cd $(CORE); hugo -s docs/reference -d ../../public -b $(baseurl_core)
@@ -114,10 +126,21 @@ generate_core_docs:
 #
 # Generates the driver 2.0 docs
 #
-generate_2_0_docs:		
+generate_2_0_docs:
 	echo "== Generating 2.0 docs"
 	cd $(2_0); git reset --hard
 	cd $(2_0); hugo -s docs/reference -d ../../public -b $(baseurl_2_0)
+	cd $(2_0); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+	cd $(2_0); cp -R ./public/api/scripts ./public/.
+	cd $(2_0); cp -R ./public/api/styles ./public/.
+
+#
+# Generates the driver 2.0 docs
+#
+generate_2_1_docs:
+	echo "== Generating 2.1 docs"
+	cd $(2_0); git reset --hard
+	cd $(2_0); hugo -s docs/reference -d ../../public -b $(baseurl_2_1)
 	cd $(2_0); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(2_0); cp -R ./public/api/scripts ./public/.
 	cd $(2_0); cp -R ./public/api/styles ./public/.
