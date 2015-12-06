@@ -118,7 +118,7 @@ generate_1_4_docs:
 generate_core_docs:
 	echo "== Generating core docs"
 	cd $(CORE); git reset --hard
-	cd $(CORE); hugo -s docs/reference -d ../../public -b $(baseurl_core)
+	cd $(CORE); hugo -s docs/reference -d ../../public -b $(baseurl_core) -t mongodb
 	cd $(CORE); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(CORE); cp -R ./public/api/scripts ./public/.
 	cd $(CORE); cp -R ./public/api/styles ./public/.
@@ -129,7 +129,7 @@ generate_core_docs:
 generate_2_0_docs:
 	echo "== Generating 2.0 docs"
 	cd $(2_0); git reset --hard
-	cd $(2_0); hugo -s docs/reference -d ../../public -b $(baseurl_2_0)
+	cd $(2_0); hugo -s docs/reference -d ../../public -b $(baseurl_2_0) -t mongodb
 	cd $(2_0); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(2_0); cp -R ./public/api/scripts ./public/.
 	cd $(2_0); cp -R ./public/api/styles ./public/.
@@ -139,10 +139,10 @@ generate_2_0_docs:
 #
 generate_2_1_docs:
 	echo "== Generating 2.1 docs"
-	cd $(2_0); git reset --hard
-	cd $(2_0); hugo -s docs/reference -d ../../public -b $(baseurl_2_1)
-	cd $(2_0); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
-	cd $(2_0); cp -R ./public/api/scripts ./public/.
-	cd $(2_0); cp -R ./public/api/styles ./public/.
+	cd $(2_1); git reset --hard
+	cd $(2_1); hugo -s docs/reference -d ../../public -b $(baseurl_2_1) -t mongodb
+	cd $(2_1); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+	cd $(2_1); cp -R ./public/api/scripts ./public/.
+	cd $(2_1); cp -R ./public/api/styles ./public/.
 
 .PHONY: total
