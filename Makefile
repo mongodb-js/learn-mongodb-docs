@@ -2,8 +2,8 @@ NODE = node
 NPM = npm
 JSDOC = jsdoc
 name = all
-3_0 = checkout/2.2
-2_2 = checkout/3.0
+3_0 = checkout/3.0
+2_2 = checkout/2.2
 CORE = checkout/core
 baseurl_3_0 = /node-mongodb-native/3.0
 baseurl_3_0_regexp = \/node-mongodb-native
@@ -38,7 +38,7 @@ setup:
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_0)
 	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout 3.0.0
 
-	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_0)
+	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_2)
 	git --git-dir $(2_2)/.git --work-tree $(2_2) checkout 2.2
 
 	# Checkout the core module
