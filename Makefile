@@ -14,7 +14,7 @@ baseurl_core_regexp = \/node-mongodb-native
 baseurl = /node-mongodb-native
 
 # Git repo
-repo = ../dist
+repo = dist
 
 #
 # Generate all
@@ -60,7 +60,7 @@ refresh:
 
 #
 # Publishes to the local git repository
-# git subtree add --prefix public git@github.com:christkv/learn-mongodb-docs.git gh-pages --squash
+# git subtree add --prefix dist git@github.com:mongodb-js/learn-mongodb-docs.git gh-pages --squash
 #
 publish:
 	cp -R ./public/. ./$(repo)/.
