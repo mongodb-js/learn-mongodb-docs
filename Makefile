@@ -80,7 +80,7 @@ generate_main_docs: generate_3_0_docs generate_2_2_docs generate_core_docs
 	rm -rf ./public
 	hugo -s site/ -d ../public -b $(baseurl)
 	# Copy the 2.2 docs
-	cp -R $(3_0)/public ./public/3_0
+	cp -R $(3_0)/public ./public/3.0
 	# Copy the 2.2 docs
 	cp -R $(2_2)/public ./public/2.2
 	# Copy the core docs
