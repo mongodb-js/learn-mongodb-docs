@@ -23,6 +23,7 @@ _testmain.go
 site/public
 public
 checkout
+dist
 
 *.exe
 *.test
