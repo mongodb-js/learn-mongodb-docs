@@ -67,7 +67,7 @@ publish:
 	git clone git@github.com:mongodb-js/learn-mongodb-docs.git $(repo)
 	cd ./$(repo);git checkout gh-pages
 	cd ..
-	cp -R ./public/. ./$repo/.
+	cp -R ./public/. ./$(repo)/.
 	cd ./$(repo); git add -A
 	cd ./$(repo); git commit -m "Updated documentation"
 	cd ./$(repo); git push origin gh-pages
