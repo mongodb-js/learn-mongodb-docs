@@ -64,7 +64,7 @@ refresh:
 #
 publish:
 	rm -rf ./$(repo)
-	git clone git@github.com:mongodb-js/learn-mongodb-docs.git $(repo)
+	git clone git@github.com:mongodb/node-mongodb-native.git $(repo)
 	cd ./$(repo);git checkout gh-pages
 	cd ..
 	cp -R ./public/. ./$(repo)/.
