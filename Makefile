@@ -36,7 +36,7 @@ setup:
 
 	# Checkout all the modules for sub docs
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_0)
-	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout 3.0.0
+	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout 3.0
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_2)
 	git --git-dir $(2_2)/.git --work-tree $(2_2) checkout 2.2
