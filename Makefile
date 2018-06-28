@@ -2,15 +2,14 @@ NODE = node
 NPM = npm
 JSDOC = jsdoc
 name = all
+3_1 = checkout/3.1
 3_0 = checkout/3.0
 2_2 = checkout/2.2
 CORE = checkout/core
+baseurl_3_1 = /node-mongodb-native/3.1
 baseurl_3_0 = /node-mongodb-native/3.0
-baseurl_3_0_regexp = \/node-mongodb-native
 baseurl_2_2 = /node-mongodb-native/2.2
-baseurl_2_2_regexp = \/node-mongodb-native
 baseurl_core = /node-mongodb-native/core
-baseurl_core_regexp = \/node-mongodb-native
 baseurl = /node-mongodb-native
 
 # Git repo
@@ -35,6 +34,9 @@ setup:
 	mkdir checkout
 
 	# Checkout all the modules for sub docs
+	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_1)
+	git --git-dir $(3_1)/.git --work-tree $(3_1) checkout 3.1
+
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_0)
 	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout 3.0
 
@@ -45,6 +47,7 @@ setup:
 	git clone --depth 1 --no-single-branch https://github.com/mongodb-js/mongodb-core.git $(CORE)
 
 	# Install all dependencies
+	cd checkout/3.1; npm install
 	cd checkout/3.0; npm install
 	cd checkout/2.2; npm install
 	cd checkout/core; npm install
@@ -75,17 +78,20 @@ publish:
 #
 # Generates main docs frame
 #
-generate_main_docs: generate_3_0_docs generate_2_2_docs generate_core_docs
+generate_main_docs: generate_3_1_docs generate_3_0_docs generate_2_2_docs generate_core_docs
 	echo "== Generating Main docs"
 	rm -rf ./public
 	hugo -s site/ -d ../public -b $(baseurl)
-	# Copy the 2.2 docs
+	# Copy the 3.1 docs
+	cp -R $(3_1)/public ./public/3.1
+	# Copy the 3.0 docs
 	cp -R $(3_0)/public ./public/3.0
 	# Copy the 2.2 docs
 	cp -R $(2_2)/public ./public/2.2
 	# Copy the core docs
 	cp -R $(CORE)/public ./public/core
 	# Reset branches
+	git --git-dir $(3_1)/.git --work-tree $(3_1) reset --hard
 	git --git-dir $(3_0)/.git --work-tree $(3_0) reset --hard
 	git --git-dir $(2_2)/.git --work-tree $(2_2) reset --hard
 	git --git-dir $(CORE)/.git --work-tree $(CORE) reset --hard
@@ -116,11 +122,24 @@ generate_2_2_docs:
 # Generates the driver 3.0 docs
 #
 generate_3_0_docs:
-	echo "== Generating 2.2 docs"
+	echo "== Generating 3.0 docs"
 	cd $(3_0); git reset --hard
 	cd $(3_0); hugo -s docs/reference -d ../../public -b $(baseurl_3_0) -t mongodb
 	cd $(3_0); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(3_0); cp -R ./public/api/scripts ./public/.
 	cd $(3_0); cp -R ./public/api/styles ./public/.
+
+.PHONY: total
+
+#
+# Generates the driver 3.1 docs
+#
+generate_3_1_docs:
+	echo "== Generating 3.1 docs"
+	cd $(3_1); git reset --hard
+	cd $(3_1); hugo -s docs/reference -d ../../public -b $(baseurl_3_1) -t mongodb
+	cd $(3_1); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+	cd $(3_1); cp -R ./public/api/scripts ./public/.
+	cd $(3_1); cp -R ./public/api/styles ./public/.
 
 .PHONY: total
