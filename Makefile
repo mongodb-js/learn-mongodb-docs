@@ -35,7 +35,7 @@ setup:
 
 	# Checkout all the modules for sub docs
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_1)
-	git --git-dir $(3_1)/.git --work-tree $(3_1) checkout 3.1
+	git --git-dir $(3_1)/.git --work-tree $(3_1) checkout master
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_0)
 	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout 3.0
@@ -47,10 +47,10 @@ setup:
 	git clone --depth 1 --no-single-branch https://github.com/mongodb-js/mongodb-core.git $(CORE)
 
 	# Install all dependencies
-	cd checkout/3.1; npm install
+	cd checkout/core; npm install; npm link;
+	cd checkout/3.1; npm install; npm link mongodb-core;
 	cd checkout/3.0; npm install
 	cd checkout/2.2; npm install
-	cd checkout/core; npm install
 	cd ../..
 
 #
