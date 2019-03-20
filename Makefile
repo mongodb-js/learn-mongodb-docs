@@ -78,7 +78,7 @@ publish:
 #
 # Generates main docs frame
 #
-generate_main_docs: generate_3_1_docs generate_3_0_docs generate_2_2_docs generate_core_docs
+generate_main_docs: generate_3_1_docs generate_3_0_docs generate_core_docs
 	echo "== Generating Main docs"
 	rm -rf ./public
 	hugo -s site/ -d ../public -b $(baseurl)
@@ -87,7 +87,7 @@ generate_main_docs: generate_3_1_docs generate_3_0_docs generate_2_2_docs genera
 	# Copy the 3.0 docs
 	cp -R $(3_0)/public ./public/3.0
 	# Copy the 2.2 docs
-	cp -R $(2_2)/public ./public/2.2
+	# cp -R $(2_2)/public ./public/2.2
 	# Copy the core docs
 	cp -R $(CORE)/public ./public/core
 	# Reset branches
