@@ -25,7 +25,7 @@ current = "3.2 Driver"
   api = "./2.2/api"
 
 [[versions]]
-  version = "3.1 Core Driver"
+  version = "3.x Core Driver"
   status = ""
   docs = "./core"
   api = "./core/api"
