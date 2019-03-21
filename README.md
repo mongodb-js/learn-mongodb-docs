@@ -7,5 +7,5 @@ To build you need the following tools installed
 
 * Hugo static web generator
 * jsdoc
-* node and npm
+* node (v6.x or v8.x) and npm (>= 3.x)
 * python sphinx
