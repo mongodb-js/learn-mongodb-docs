@@ -42,7 +42,7 @@ setup:
 	git --git-dir $(3_3)/.git --work-tree $(3_3) checkout next
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_2)
-	git --git-dir $(3_2)/.git --work-tree $(3_2) checkout master
+	git --git-dir $(3_2)/.git --work-tree $(3_2) checkout 3.2
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_1)
 	git --git-dir $(3_1)/.git --work-tree $(3_1) checkout 3.1
@@ -93,7 +93,7 @@ publish:
 #
 # Generates main docs frame
 #
-generate_main_docs: generate_3_3_docs generate_3_2_docs generate_3_1_docs generate_3_0_docs generate_core_docs
+generate_main_docs: generate_3_3_docs generate_3_2_docs generate_3_1_docs generate_3_0_docs generate_2_2_docs generate_core_docs
 	echo "== Generating Main docs"
 	rm -rf ./public
 	hugo -s site/ -d ../public -b $(baseurl)
@@ -106,7 +106,7 @@ generate_main_docs: generate_3_3_docs generate_3_2_docs generate_3_1_docs genera
 	# Copy the 3.0 docs
 	cp -R $(3_0)/public ./public/3.0
 	# Copy the 2.2 docs
-	# cp -R $(2_2)/public ./public/2.2
+	cp -R $(2_2)/public ./public/2.2
 	# Copy the core docs
 	cp -R $(CORE)/public ./public/core
 	# Reset branches
@@ -135,9 +135,9 @@ generate_2_2_docs:
 	echo "== Generating 2.2 docs"
 	cd $(2_2); git reset --hard
 	cd $(2_2); hugo -s docs/reference -d ../../public -b $(baseurl_2_2) -t mongodb
-	cd $(2_2); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
-	cd $(2_2); cp -R ./public/api/scripts ./public/.
-	cd $(2_2); cp -R ./public/api/styles ./public/.
+	# cd $(2_2); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+	# cd $(2_2); cp -R ./public/api/scripts ./public/.
+	# cd $(2_2); cp -R ./public/api/styles ./public/.
 
 #
 # Generates the driver 3.0 docs
