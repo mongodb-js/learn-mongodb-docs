@@ -16,6 +16,12 @@ baseurl_2_2 = /node-mongodb-native/2.2
 baseurl_core = /node-mongodb-native/core
 baseurl = /node-mongodb-native
 
+branch_3_3=3.3
+branch_3_2=3.2
+branch_3_1=3.1
+branch_3_0=3.0
+branch_2_2=2.2
+
 # Git repo
 repo=dist
 
@@ -39,19 +45,19 @@ setup:
 
 	# Checkout all the modules for sub docs
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_3)
-	git --git-dir $(3_3)/.git --work-tree $(3_3) checkout next
+	git --git-dir $(3_3)/.git --work-tree $(3_3) checkout $(branch_3_3)
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_2)
-	git --git-dir $(3_2)/.git --work-tree $(3_2) checkout 3.2
+	git --git-dir $(3_2)/.git --work-tree $(3_2) checkout $(branch_3_2)
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_1)
-	git --git-dir $(3_1)/.git --work-tree $(3_1) checkout 3.1
+	git --git-dir $(3_1)/.git --work-tree $(3_1) checkout $(branch_3_1)
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_0)
-	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout 3.0
+	git --git-dir $(3_0)/.git --work-tree $(3_0) checkout $(branch_3_0)
 
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(2_2)
-	git --git-dir $(2_2)/.git --work-tree $(2_2) checkout 2.2
+	git --git-dir $(2_2)/.git --work-tree $(2_2) checkout $(branch_2_2)
 
 	# Checkout the core module
 	git clone --depth 1 --no-single-branch https://github.com/mongodb-js/mongodb-core.git $(CORE)
