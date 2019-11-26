@@ -186,7 +186,7 @@ generate_3_2_docs:
 # Generates the driver 3.3 docs
 #
 generate_3_3_docs:
-	echo "== Generating 3.2 docs"
+	echo "== Generating 3.3 docs"
 	cd $(3_3); git reset --hard
 	cd $(3_3); hugo -s docs/reference -d ../../public -b $(baseurl_3_3) -t mongodb
 	cd $(3_3); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
