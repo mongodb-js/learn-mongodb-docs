@@ -1,4 +1,10 @@
-current = "3.3 Driver"
+current = "3.4 Driver"
+
+[[versions]]
+  version = "3.4 Driver"
+  status = ""
+  docs = "./3.4"
+  api = "./3.4/api"
 
 [[versions]]
   version = "3.3 Driver"

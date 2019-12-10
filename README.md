@@ -34,7 +34,7 @@ Add the following lines to the `setup` task:
 ```
 git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_4)
 git --git-dir $(3_4)/.git --work-tree $(3_4) checkout $(branch_3_4)
-cd checkout/3.3; npm install;
+cd checkout/3.4; npm install;
 ```
 
 Add the following lines to the `refresh` task
@@ -93,7 +93,7 @@ current = "3.4 Driver"
 Add a new entry to the front of the list:
 
 ```json
-[{"version": "3.4"}, 
+[{"version": "3.4"},
 ```
 
 You now should be good to go.
