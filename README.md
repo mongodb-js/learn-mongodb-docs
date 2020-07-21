@@ -7,17 +7,45 @@ To build you need the following tools installed
 * Hugo static web generator `v0.30.2`
     * You can download the right version [here](https://github.com/gohugoio/hugo/releases/tag/v0.30.2)
 * jsdoc v3
-* node (v6.x or v8.x) and npm (>= 3.x)
+* node (v6.x or v8.x) and npm (>= 3.x). Note: worked for me with 8.17.0, but not 8.0.0.
 * python sphinx
 
-## How to build the documentations
+
+## How to preview the documentation locally
+
+* Install dependencies; ensure you are using the correct npm version in your current shell
+* Run `make setup generate_main_docs` to pull each version branch of the docs
+  and run `hugo` on them to generate the publishable files.
+* At this point, you should be able to run hugo server to preview the
+  landing page
+* To view one of the reference docs branches, copy the <root>/public/<version>
+  directory to <root>/site/content. Note: for referenced styles, you'll need 
+  to manually update all the paths to remove `/node-mongodb-native` from the 
+  path.
+* If you need to make local changes to preview the reference docs before
+  publishing, build them with hugo and copy them over. For example:
+  ```
+  cd <root>/checkout/<version>
+  hugo -s docs/reference --destination ../../public -b /<version> -t mongodb --verbose --debug
+  cp -r public/ <root>/site/content/<version>
+  ```
+* Start hugo server, specifying `--contentDir=content`, and at this point
+  you should be able to follow the links. Your command might look like
+  this:
+  ```
+  hugo server --baseUrl=http://localhost/ --buildDrafts --watch --contentDir=content
+  ```
+* If you are working on updating a branch, make sure the PR is against
+  the appropriate branch of the `node-mongodb-native` repo.
+
+## How to publish the documentation
 
 * Install all dependencies
 * run `make`
 
 ## How to add a new version
 
-This will assume that you are adding a new minor version `3.4`
+This assumes that you are adding a new minor version `3.4`
 
 ### Update `Makefile`
 
