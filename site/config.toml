@@ -4,3 +4,6 @@ title = "MongoDB Node.js Driver"
 canonifyurls = false
 
 githubRepo = "node-mongodb-native"
+
+[params]
+    referenceDocsUrl = "https://docs.mongodb.com/drivers/node"
