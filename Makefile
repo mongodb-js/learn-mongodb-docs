@@ -25,7 +25,7 @@ baseurl_2_2 = /node-mongodb-native/2.2
 baseurl_core = /node-mongodb-native/core
 baseurl = /node-mongodb-native
 
-branch_4_0=master
+branch_4_0=4.0
 branch_3_6=3.6
 branch_3_5=3.5
 branch_3_4=3.4
