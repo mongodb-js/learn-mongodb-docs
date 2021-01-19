@@ -19,8 +19,8 @@ To build you need the following tools installed
 * At this point, you should be able to run hugo server to preview the
   landing page
 * To view one of the reference docs branches, copy the <root>/public/<version>
-  directory to <root>/site/content. Note: for referenced styles, you'll need 
-  to manually update all the paths to remove `/node-mongodb-native` from the 
+  directory to <root>/site/content. Note: for referenced styles, you'll need
+  to manually update all the paths to remove `/node-mongodb-native` from the
   path.
 * If you need to make local changes to preview the reference docs before
   publishing, build them with hugo and copy them over. For example:
@@ -44,6 +44,13 @@ To build you need the following tools installed
 * run `make`
 
 ## How to add a new version
+
+> **NOTE:** Documentation generation changed with version 4.0 and later.
+> The repo contains the command to generate the docs with `npm run build:docs`.
+>
+> Take a look at the `generate_4_0_docs` task in the Makefile
+> There is no longer an `api` subdirectory in the 4.0 version the API docs are just in the top level.
+> The reference docs are now maintained by the docs team and we link to their site instead.
 
 This assumes that you are adding a new minor version `3.4`
 
