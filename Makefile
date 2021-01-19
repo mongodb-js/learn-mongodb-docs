@@ -1,7 +1,7 @@
 NODE = node
 NPM = npm
-JSDOC = jsdoc
-HUGO = hugo
+JSDOC = /Users/neal/code/drivers/js/learn-mongodb-docs/node_modules/.bin/jsdoc
+HUGO = /Users/neal/code/drivers/js/learn-mongodb-docs/hugo
 name = all
 4_0 = checkout/4.0
 3_6 = checkout/3.6
@@ -254,7 +254,7 @@ generate_3_4_docs:
 #
 generate_3_5_docs:
 	@echo "== Generating 3.5 docs"
-	# cd $(3_5); git reset --hard
+	cd $(3_5); git reset --hard
 	cd $(3_5); $(HUGO) -s docs/reference -d ../../public -b $(baseurl_3_5) -t mongodb
 	cd $(3_5); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
 	cd $(3_5); cp -R ./public/api/scripts ./public/.
