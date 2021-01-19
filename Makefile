@@ -1,7 +1,7 @@
 NODE = node
 NPM = npm
-JSDOC = /Users/neal/code/drivers/js/learn-mongodb-docs/node_modules/.bin/jsdoc
-HUGO = /Users/neal/code/drivers/js/learn-mongodb-docs/hugo
+JSDOC = jsdoc
+HUGO = hugo
 name = all
 4_0 = checkout/4.0
 3_6 = checkout/3.6
