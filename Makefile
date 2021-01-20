@@ -1,7 +1,7 @@
 NODE = node
 NPM = npm
-JSDOC = jsdoc
-HUGO = hugo
+JSDOC ?= jsdoc
+HUGO ?= hugo
 name = all
 4_0 = checkout/4.0
 3_6 = checkout/3.6
