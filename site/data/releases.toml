@@ -1,4 +1,12 @@
-current = "3.5 Driver"
+current = "4.0 Driver"
+mongoDBManual = "https://docs.mongodb.com/drivers/node/"
+
+
+[[versions]]
+  version = "4.0 Driver"
+  status = ""
+  api = "./4.0"
+  usesMongoDBManual = true
 
 [[versions]]
   version = "3.6 Driver"
