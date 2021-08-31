@@ -5,6 +5,7 @@ HUGO ?= hugo
 name = all
 4_1 = checkout/4.1
 4_0 = checkout/4.0
+3_7 = checkout/3.7
 3_6 = checkout/3.6
 3_5 = checkout/3.5
 3_4 = checkout/3.4
@@ -15,6 +16,7 @@ name = all
 2_2 = checkout/2.2
 CORE = checkout/core
 baseurl_4_0 = /node-mongodb-native/4.0
+baseurl_3_7 = /node-mongodb-native/3.7
 baseurl_3_6 = /node-mongodb-native/3.6
 baseurl_3_5 = /node-mongodb-native/3.5
 baseurl_3_4 = /node-mongodb-native/3.4
@@ -28,6 +30,7 @@ baseurl = /node-mongodb-native
 
 branch_4_1=4.1
 branch_4_0=4.0
+branch_3_7=3.7
 branch_3_6=3.6
 branch_3_5=3.5
 branch_3_4=3.4
@@ -40,7 +43,7 @@ branch_2_2=2.2
 # Git repo
 repo=dist
 
-.PHONY: all generate_2_2_docs generate_3_0_docs generate_3_1_docs generate_3_2_docs generate_3_3_docs generate_3_4_docs generate_3_5_docs generate_3_6_docs generate_4_0_docs generate_4_1_docs generate_core_docs generate_main_docs publish prepare refresh refresh_publish setup
+.PHONY: all generate_2_2_docs generate_3_0_docs generate_3_1_docs generate_3_2_docs generate_3_3_docs generate_3_4_docs generate_3_5_docs generate_3_6_docs generate_3_7_docs generate_4_0_docs generate_4_1_docs generate_core_docs generate_main_docs publish prepare refresh refresh_publish setup
 
 #
 # Generate all
@@ -68,8 +71,11 @@ setup:
 	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(4_0)
 	git --git-dir $(4_0)/.git --work-tree $(4_0) checkout $(branch_4_0)
 
-	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_6)
-	git --git-dir $(3_6)/.git --work-tree $(3_6) checkout $(branch_3_6)
+	git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_7)
+	git --git-dir $(3_7)/.git --work-tree $(3_7) checkout $(branch_3_7)
+
+	# git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_6)
+	# git --git-dir $(3_6)/.git --work-tree $(3_6) checkout $(branch_3_6)
 
 	# git clone --depth 1 --no-single-branch https://github.com/mongodb/node-mongodb-native.git $(3_5)
 	# git --git-dir $(3_5)/.git --work-tree $(3_5) checkout $(branch_3_5)
@@ -96,9 +102,10 @@ setup:
 	# git clone --depth 1 --no-single-branch https://github.com/mongodb-js/mongodb-core.git $(CORE)
 
 	# Install all dependencies
-	cd checkout/4.1; npm install
-	cd checkout/4.0; npm install
-	cd checkout/3.6; npm install; npm install mongodb-client-encryption;
+	cd $(4_1); npm install
+	cd $(4_0); npm install
+	cd $(3_7); npm install; npm install mongodb-client-encryption;
+	# cd checkout/3.6; npm install; npm install mongodb-client-encryption;
 	# cd checkout/core; npm install; npm link;
 	# cd checkout/3.5; npm install; npm install mongodb-client-encryption;
 	# cd checkout/3.4; npm install; npm install mongodb-client-encryption;
@@ -115,7 +122,8 @@ setup:
 refresh:
 	cd $(4_1);git pull
 	cd $(4_0);git pull
-	cd $(3_6);git pull
+	cd $(3_7);git pull
+	# cd $(3_6);git pull
 	# cd $(3_5);git pull
 	# cd $(3_4);git pull
 	# cd $(3_3);git pull
@@ -150,7 +158,7 @@ publish:
 #
 # Old no longer supported versions
 # generate_3_5_docs generate_3_4_docs generate_3_3_docs generate_3_2_docs generate_3_1_docs generate_3_0_docs generate_2_2_docs generate_core_docs
-generate_main_docs: generate_4_0_docs generate_4_1_docs generate_3_6_docs
+generate_main_docs: generate_4_0_docs generate_4_1_docs generate_3_7_docs
 	@echo "== Generating Main docs"
 	rm -rf ./public
 	$(HUGO) -s site/ -d ../public -b $(baseurl)
@@ -158,8 +166,10 @@ generate_main_docs: generate_4_0_docs generate_4_1_docs generate_3_6_docs
 	cp -R $(4_1)/docs/public ./public/4.1
 	# Copy the 4.0 docs
 	cp -R $(4_0)/docs/public ./public/4.0
+	# Copy the 3.7 docs
+	cp -R $(3_7)/public ./public/3.7
 	# Copy the 3.6 docs
-	cp -R $(3_6)/public ./public/3.6
+	# cp -R $(3_6)/public ./public/3.6
 	# Copy the 3.5 docs
 	# cp -R $(3_5)/public ./public/3.5
 	# # Copy the 3.4 docs
@@ -179,7 +189,8 @@ generate_main_docs: generate_4_0_docs generate_4_1_docs generate_3_6_docs
 	# Reset branches
 	git --git-dir $(4_1)/.git --work-tree $(4_1) reset --hard
 	git --git-dir $(4_0)/.git --work-tree $(4_0) reset --hard
-	git --git-dir $(3_6)/.git --work-tree $(3_6) reset --hard
+	git --git-dir $(3_7)/.git --work-tree $(3_7) reset --hard
+	# git --git-dir $(3_6)/.git --work-tree $(3_6) reset --hard
 	# git --git-dir $(3_5)/.git --work-tree $(3_5) reset --hard
 	# git --git-dir $(3_4)/.git --work-tree $(3_4) reset --hard
 	# git --git-dir $(3_3)/.git --work-tree $(3_3) reset --hard
@@ -280,13 +291,24 @@ generate_main_docs: generate_4_0_docs generate_4_1_docs generate_3_6_docs
 #
 # Generates the driver 3.6 docs
 #
-generate_3_6_docs:
-	@echo "== Generating 3.6 docs"
-	cd $(3_6); git reset --hard
-	cd $(3_6); $(HUGO) -s docs/reference -d ../../public -b $(baseurl_3_6) -t mongodb
-	cd $(3_6); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
-	cd $(3_6); cp -R ./public/api/scripts ./public/.
-	cd $(3_6); cp -R ./public/api/styles ./public/.
+# generate_3_6_docs:
+# 	@echo "== Generating 3.6 docs"
+# 	cd $(3_6); git reset --hard
+# 	cd $(3_6); $(HUGO) -s docs/reference -d ../../public -b $(baseurl_3_6) -t mongodb
+# 	cd $(3_6); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+# 	cd $(3_6); cp -R ./public/api/scripts ./public/.
+# 	cd $(3_6); cp -R ./public/api/styles ./public/.
+
+#
+# Generates the driver 3.6 docs
+#
+generate_3_7_docs:
+	@echo "== Generating 3.7 docs"
+	cd $(3_7); git reset --hard
+	cd $(3_7); $(HUGO) -s docs/reference -d ../../public -b $(baseurl_3_7) -t mongodb
+	cd $(3_7); $(JSDOC) -c conf.json -t docs/jsdoc-template/ -d ./public/api
+	cd $(3_7); cp -R ./public/api/scripts ./public/.
+	cd $(3_7); cp -R ./public/api/styles ./public/.
 
 #
 # Generates the driver 4.0 docs
