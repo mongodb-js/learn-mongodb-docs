@@ -24,6 +24,7 @@ site/public
 public
 checkout
 dist
+gh-pages/
 
 *.exe
 *.test
