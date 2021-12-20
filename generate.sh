@@ -103,6 +103,6 @@ echo -e "Inspect the changes above. If they look right to you run the following:
 cat << EOF
 cd gh-pages
 git commit -m "Updated documentation"
-git push origin gh-page
+git push origin gh-pages
 cd ..
 EOF
