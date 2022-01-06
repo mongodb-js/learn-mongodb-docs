@@ -67,7 +67,8 @@ for branch in "${BRANCHES[@]}"; do
 
     pushd "checkout/$branch"
     npm install
-    npm install mongodb-client-encryption
+    npm install --no-save mongodb-client-encryption
+    npm install --no-save typedoc
     popd
 
     MAJOR_VERSION=${branch:0:1}
@@ -80,6 +81,15 @@ for branch in "${BRANCHES[@]}"; do
         "4")
             generate_4x "$branch"
             cp -R "checkout/$branch/docs/public" "./public/$branch"
+        ;;
+        "m")
+            echo "HEY YOU BETTER EDIT ME!!!"
+            echo "YOU NEED TO MANUALLY SPECIFY THE BRANCH FOR NOW"
+            echo "TODO"
+            exit 1
+            mv checkout/main checkout/4.3
+            generate_4x 4.3
+            cp -R "checkout/4.3/docs/public" "./public/4.3"
         ;;
         *)
             echo "no support for $branch docs"
