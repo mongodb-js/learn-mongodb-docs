@@ -1,9 +1,15 @@
-current = "4.3 Driver"
+current = "4.4 Driver"
 mongoDBManual = "https://docs.mongodb.com/drivers/node/"
 
 [[versions]]
-  version = "4.3 Driver"
+  version = "4.4 Driver"
   status = "current"
+  api = "./4.4"
+  usesMongoDBManual = true
+
+[[versions]]
+  version = "4.3 Driver"
+  status = "supported"
   api = "./4.3"
   usesMongoDBManual = true
 
@@ -39,48 +45,48 @@ mongoDBManual = "https://docs.mongodb.com/drivers/node/"
 
 [[versions]]
   version = "3.5 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./3.5"
   api = "./3.5/api"
 
 [[versions]]
   version = "3.4 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./3.4"
   api = "./3.4/api"
 
 [[versions]]
   version = "3.3 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./3.3"
   api = "./3.3/api"
 
 [[versions]]
   version = "3.2 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./3.2"
   api = "./3.2/api"
 
 [[versions]]
   version = "3.1 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./3.1"
   api = "./3.1/api"
 
 [[versions]]
   version = "3.0 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./3.0"
   api = "./3.0/api"
 
 [[versions]]
   version = "2.2 Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./2.2"
   api = "./2.2/api"
 
 [[versions]]
   version = "3.x Core Driver"
-  status = "out-of-support"
+  status = "not-supported"
   docs = "./core"
   api = "./core/api"

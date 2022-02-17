@@ -57,9 +57,9 @@ for branch in "${BRANCHES[@]}"; do
     if [ -d "checkout/$branch" ]; then
         echo "checkout/$branch already exists, resetting"
         echo "double check there are no unexpected changes"
-        # git --git-dir "checkout/$branch/.git" clean -dfx
-        # git --git-dir "checkout/$branch/.git" fetch origin
-        # git --git-dir "checkout/$branch/.git" reset --hard "origin/$branch"
+        git --git-dir "checkout/$branch/.git" clean -dfx
+        git --git-dir "checkout/$branch/.git" fetch origin
+        git --git-dir "checkout/$branch/.git" reset --hard "origin/$branch"
     else
         echo "cloning driver $branch to checkout/$branch"
         git clone --branch "$branch" --depth 1 "$DRIVER_CLONE_URL" "checkout/$branch"
@@ -86,10 +86,10 @@ for branch in "${BRANCHES[@]}"; do
             echo "HEY YOU BETTER EDIT ME!!!"
             echo "YOU NEED TO MANUALLY SPECIFY THE BRANCH FOR NOW"
             echo "TODO"
-            exit 1
-            mv checkout/main checkout/4.3
-            generate_4x 4.3
-            cp -R "checkout/4.3/docs/public" "./public/4.3"
+            # exit 1
+            mv checkout/main checkout/4.4
+            generate_4x 4.4
+            cp -R "checkout/4.4/docs/public" "./public/4.4"
         ;;
         *)
             echo "no support for $branch docs"
